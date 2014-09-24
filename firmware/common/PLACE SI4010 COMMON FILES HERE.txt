@@ -1,0 +1,16 @@
+Place the proprietary SI4010 common files from the Silicon Labs SI4010 examples here.
+
+This directory should have the following content:
+
+src/startup.a51
+src/si4010_link.c
+src/si4010.inc
+src/si4010_api_rom.h
+src/si4010.h
+src/si4010_data.c
+src/si4010_api_add.h
+src/si4010_types.h
+src/si4010_rom_keil.a51
+src/si4010_rom_all.a51
+lib/si4010_fix_rom_keil.lib
+lib/si4010_api_add_keil.lib

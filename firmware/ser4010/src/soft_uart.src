@@ -1,0 +1,302 @@
+;;
+; 8051 bit-banged UART implementation
+;
+; Functions to communicate using the serial port
+;
+; Target: si4010
+; MIPS: 25
+; Compiler: Keil
+;
+; Copyright (c) 2014, David Imhoff <dimhoff_devel@xs4all.nl>
+; All rights reserved.
+;
+; Redistribution and use in source and binary forms, with or without
+; modification, are permitted provided that the following conditions are met:
+;     * Redistributions of source code must retain the above copyright
+;       notice, this list of conditions and the following disclaimer.
+;     * Redistributions in binary form must reproduce the above copyright
+;       notice, this list of conditions and the following disclaimer in the
+;       documentation and/or other materials provided with the distribution.
+;     * Neither the name of the author nor the names of its contributors may
+;       be used to endorse or promote products derived from this software
+;       without specific prior written permission.
+;
+; THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+; WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+; MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+; EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+; SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+; WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+; OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+; ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+;
+$INCLUDE (si4010.inc)
+
+NAME    SOFT_UART
+
+#define M_TXPIN 0x80
+TXPIN	bit	GPIO7
+RXPIN	bit	GPIO6
+#define RXPIN_NR 6
+
+
+CSEG AT 03H                    ; External Interrupt 0 interrupt vector
+             LJMP   int0isr
+
+CSEG AT 0BH                    ; Timer 2 interrupt vector
+             LJMP   tmr2isr
+
+
+;!!!!!!!!!!WARNING!!!!!!!!!
+; Assuming that ser_fifo starts at a multiple of fifo len
+;!!!!!!!!!!WARNING!!!!!!!!!
+?DT?SER_FIFO?SOFT_UART SEGMENT DATA ;align(2)
+	RSEG ?DT?SER_FIFO?SOFT_UART
+#define ser_fifo_len_mask 0x3
+ser_fifo:	DS 4			; Fifo buffer
+ser_fifo_rp: DS 1		; Read Pointer (char idata *)
+ser_fifo_wp: DS 1		; Write Pointer (char idata *)
+_ser_bitcnt: DS 1		; bit receiving state
+ser_tx_byte: DS 1		; Current TX byte
+_ser_tx_bitcnt: DS 1	; bit transmitting state
+
+;;
+; Initialize soft UART
+;
+; void ser_init()
+;
+?PR?ser_init?SOFT_UART   SEGMENT CODE
+	PUBLIC  ser_init
+	RSEG   ?PR?ser_init?SOFT_UART
+	USING  0
+
+ser_init:
+	mov _ser_bitcnt, #0
+	mov ser_fifo_rp, #ser_fifo
+	mov ser_fifo_wp, #ser_fifo
+
+	; Enable push-pull for UART TX
+	setb	TXPIN
+	xrl	P0CON, #M_TXPIN
+
+	; Setup Timer 2 interrupts in split mode and reload value of 1 symbol time
+	; TMR2L is RX timer, TMR2H is TX timer
+	mov	TMR2CTRL, #(M_TMR2INTL_EN or M_TMR2SPLIT)
+	mov A, TMR_CLKSEL
+	anl A, #(NOT (M_TMR2L_MODE or M_TMR2H_MODE))
+	orl A, #((0x1 shl B_TMR2L_MODE) or (0x1 shl B_TMR2H_MODE))
+	mov	TMR_CLKSEL, A
+; 9600 @ 24 MHz / 12
+	mov	TMR2RH, #0x30
+	mov	TMR2RL, #0x30
+; 115200 @ 24 MHz
+;	mov	TMR2RH, #0x2c
+;	mov	TMR2RL, #0x2c
+	setb ETMR2
+	setb ETMR2	; dummy 2c command
+
+	; Setup edge interrupt on RX pin
+	mov A, PORT_INTCFG
+	anl	A, #(NOT M_SEL_INT0)
+	orl A, #(M_NEG_INT0 OR (RXPIN_NR SHL B_SEL_INT0))
+	mov PORT_INTCFG, A
+	anl INT_FLAGS, #(NOT M_INT0_FLAG)
+	setb EINT0
+	setb EINT0	; dummy 2c command
+
+	; Enable Interrupts
+	setb	EA
+	setb	EA	; dummy 2c command
+
+	ret
+
+;;
+; Write a character to the serial port
+;
+; void ser_putc(char b)
+;
+?PR?_ser_putc?SOFT_UART   SEGMENT CODE
+	PUBLIC  _ser_putc
+	RSEG   ?PR?_ser_putc?SOFT_UART
+	USING  0
+_ser_putc:
+	jb	TMR2H_RUN, $
+
+	; setup state
+	mov ser_tx_byte, R7
+	mov _ser_tx_bitcnt, #9
+
+	; start bit
+	clr	TXPIN
+
+	; run TMR2H
+	mov	TMR2H, TMR2RH
+	setb	TMR2H_RUN
+
+	ret
+
+;;
+; Get a character from the serial port
+;
+; char ser_getc()
+;
+?PR?ser_getc?SOFT_UART   SEGMENT CODE
+	PUBLIC  ser_getc
+	RSEG   ?PR?ser_getc?SOFT_UART
+	USING  0
+
+ser_getc:
+	mov A, ser_fifo_rp
+ser_getc_wait_data:
+	cjne	A, ser_fifo_wp, ser_getc_has_data
+	sjmp	ser_getc_wait_data
+
+ser_getc_has_data:
+	mov	R0, A
+	xch	A, R7
+	mov	A, @R0
+	xch	A, R7
+
+	inc	A
+;!!!!!!!!!!WARNING!!!!!!!!!
+; Assuming that ser_fifo starts at a multiple of fifo len
+;!!!!!!!!!!WARNING!!!!!!!!!
+	anl	A, #ser_fifo_len_mask
+	add	A, #ser_fifo
+	mov	ser_fifo_rp, A
+	
+	ret	
+
+;;
+; Int0 edge ISR
+;
+?PR?int0isr?SOFT_UART	SEGMENT CODE
+	RSEG ?PR?int0isr?SOFT_UART
+	USING 1
+
+int0isr:
+	anl INT_FLAGS, #(NOT M_INT0_FLAG)
+
+	jb	RXPIN, int0isr_done
+
+	clr	EINT0
+	; Start sampeling after 1/2 symbol width
+; 9600 @ 24 MHz /12
+	mov	TMR2L, #0x98
+; 115200 @ 24 MHz
+;	mov	TMR2L, #0x96
+	setb	TMR2L_RUN
+
+int0isr_done:
+	reti
+
+;;
+; Timer 2 ISR
+;
+?PR?tmr2isr?SOFT_UART	SEGMENT CODE
+	RSEG ?PR?tmr2isr?SOFT_UART
+	USING 1
+
+tmr2isr:
+	jbc	TMR2INTL, tmr2lisr
+	jbc	TMR2INTH, tmr2hisr
+	reti
+
+tmr2lisr:
+	; Use a different register bank because we need R0
+	; We cant just push R0 because the direct address depends on the currently 
+	; selected register bank
+	push	PSW
+	mov		PSW, #(1 SHL 3)   ; set register bank 1
+	xch	A, R7
+
+	clr	A
+	cjne	A, _ser_bitcnt, tmr2lisr_j1
+	; -- Start Bit
+	; check if still in start bit
+	jb	RXPIN, tmr2lisr_finish2	; framing error
+	mov	_ser_bitcnt, #9
+	sjmp	tmr2lisr_done
+
+
+tmr2lisr_j1:
+	djnz	_ser_bitcnt, tmr2lisr_j2
+	; -- Stop Bit
+	jnb	RXPIN, tmr2lisr_finish2	; framing error
+
+	mov	A, ser_fifo_wp
+	inc	A
+;!!!!!!!!!!WARNING!!!!!!!!!
+; Assuming that ser_fifo starts at a multiple of fifo len
+;!!!!!!!!!!WARNING!!!!!!!!!
+	anl	A, #ser_fifo_len_mask
+	add	A, #ser_fifo
+	cjne	A, ser_fifo_rp, tmr2lisr_inc_wp	; drop if fifo overflow
+
+; DEBUG
+;mov	_ser_bitcnt, #0xD0
+;sjmp	tmr2lisr_finish
+tmr2lisr_finish2:
+;mov	_ser_bitcnt, #0xDB
+; END DEBUG
+
+tmr2lisr_finish:
+	clr TMR2L_RUN
+	anl INT_FLAGS, #(NOT M_INT0_FLAG)
+	setb	EINT0
+	sjmp	tmr2lisr_done
+
+tmr2lisr_inc_wp:
+	mov	ser_fifo_wp, A
+	sjmp tmr2lisr_finish
+
+
+tmr2lisr_j2:
+	; -- Data Bit
+	mov R0, ser_fifo_wp
+	mov	A, @R0
+
+	mov	C, RXPIN
+	rrc	A
+
+	mov	@R0, A
+
+tmr2lisr_done:
+	xch A, R7
+	pop PSW
+	reti
+
+;;
+;TMR2H ISR
+;
+tmr2hisr:
+	push ACC
+
+	clr	A
+	cjne	A, _ser_tx_bitcnt, tmr2hisr_j1
+	; all done
+	clr	TMR2H_RUN
+	sjmp	tmr2hisr_done
+
+tmr2hisr_j1:
+	djnz	_ser_tx_bitcnt, tmr2hisr_j2
+	; stop bit
+	setb	TXPIN
+	sjmp	tmr2hisr_done
+
+tmr2hisr_j2:
+	; data bits
+	mov	A, ser_tx_byte
+	rrc	A
+	mov	TXPIN, C	
+	mov	ser_tx_byte, A
+
+tmr2hisr_done:
+	pop	ACC
+	reti	
+
+
+	END
+

@@ -1,0 +1,3 @@
+Firmware
+ - Add command to get firmware version
+ - Write my own firmware/ser4010/src/custom_startup.a51 instead of using the copyrighted one from silabs...
