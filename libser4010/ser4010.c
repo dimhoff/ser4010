@@ -189,6 +189,33 @@ int ser4010_get_fdiv(struct serco *sdev, float *fdiv)
 	return 0;
 }
 
+int ser4010_set_enc(struct serco *sdev, enum Ser4010Encoding enc)
+{
+	uint8_t bEnc = enc;
+
+	return serco_send_command(sdev, CMD_SET_ENC, &bEnc, sizeof(uint8_t), NULL, 0);
+}
+
+int ser4010_get_enc(struct serco *sdev, enum Ser4010Encoding *enc)
+{
+	int ret;
+	size_t res_len;
+	uint8_t bEnc;
+
+	res_len = sizeof(uint8_t);
+	ret = serco_send_command(sdev, CMD_GET_ENC, NULL, 0, &bEnc, &res_len);
+	if (ret != STATUS_OK) {
+		return ret;
+	}
+	if (res_len != sizeof(uint8_t)) {
+		return -1000;
+	}
+
+	*enc = bEnc;
+
+	return 0;
+}
+
 int ser4010_reconfigure(struct serco *sdev)
 {
 	return serco_send_command(sdev, CMD_RF_SETUP, NULL, 0, NULL, 0);

@@ -40,6 +40,7 @@
 // Transmission parameters
 tOds_Setup xdata rOdsSetup;
 tPa_Setup xdata  rPaSetup;
+BYTE bEnc;
 float fFreq;
 float fFdiv;
 
@@ -99,7 +100,7 @@ void rf_setup()
 	vOds_Setup( &rOdsSetup );
 
 	// Setup the STL encoding for none.
-	vStl_EncodeSetup( bEnc_NoneNrz_c, NULL );
+	vStl_EncodeSetup( bEnc, NULL );
 
 	// Setup and run the frequency casting. 
 	vFCast_Setup();
@@ -168,6 +169,8 @@ void main()
 	rOdsSetup.bLcWarmInt  = 8;
 	rOdsSetup.bDivWarmInt = 5;
 	rOdsSetup.bPaWarmInt  = 4;
+
+	bEnc  = bEnc_NoneNrz_c;
 
 	fFreq = 433.9e6;
 	fFdiv = 127;
@@ -281,6 +284,23 @@ void main()
 					res = STATUS_INVALID_FRAME_LEN;
 				} else {
 					memcpy(&fFdiv, &cmd[CMD_PAYLOAD], sizeof(fFdiv));
+
+					res = STATUS_OK;
+				}
+				break;
+			case CMD_GET_ENC:
+				res_len = 1;
+				res_buf[0] = bEnc;
+
+				res = STATUS_OK;
+				break;
+			case CMD_SET_ENC:
+				if (cmd_len - CMD_PAYLOAD != 1) {
+					res = STATUS_INVALID_FRAME_LEN;
+				} else if (cmd[CMD_PAYLOAD] < 0 || cmd[CMD_PAYLOAD] > 2) {
+					res = STATUS_INVALID_ARGUMENT;
+				} else {
+					bEnc = cmd[CMD_PAYLOAD];
 
 					res = STATUS_OK;
 				}

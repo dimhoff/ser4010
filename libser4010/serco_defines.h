@@ -54,6 +54,8 @@
 #define CMD_SET_FREQ     15
 #define CMD_GET_FDIV     16
 #define CMD_SET_FDIV     17
+#define CMD_GET_ENC      18
+#define CMD_SET_ENC      19
 
 #define CMD_LOAD_FRAME   20
 #define CMD_APPEND_FRAME 21
@@ -72,6 +74,7 @@
 #define STATUS_UNKNOWN_CMD          0x01
 #define STATUS_LOGIC_ERROR          0x02
 #define STATUS_INVALID_FRAME_LEN    0x10
+#define STATUS_INVALID_ARGUMENT     0x11
 #define STATUS_INVALID_SEND_COOKIE  0x50
 #define STATUS_TOO_MUCH_DATA        0x51
 

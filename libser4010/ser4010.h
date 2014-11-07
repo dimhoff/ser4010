@@ -93,6 +93,16 @@ typedef struct {
 #pragma pack()
 
 /**
+ * Data encoding types for vStl_EncodeSetup()
+ */
+enum Ser4010Encoding {
+	bEnc_NoneNrz_c    = 0,   /**< No encoding */
+	bEnc_Manchester_c = 1,   /**< Manchester encoding */
+	bEnc_4b5b_c       = 2,   /**< 4b-5b encoding */
+};
+
+
+/**
  * Set Output Data Serializer configuration
  *
  * @param sdev		Serial Communication handle
@@ -165,6 +175,28 @@ int ser4010_set_fdiv(struct serco *sdev, float fdiv);
  * @param fdiv	Magic value between 0 and 104 indicating frequency deviation
  */
 int ser4010_get_fdiv(struct serco *sdev, float *fdiv);
+
+/**
+ * Set data encoding to use
+ *
+ * Set the data encoding to use for encoding the data before sending.
+ * bEnc_NoneNrz_c means no encoding is used.
+ *
+ * @param sdev	Serial Communication handle
+ * @param enc	Encoding to use
+ */
+int ser4010_set_enc(struct serco *sdev, enum Ser4010Encoding enc);
+
+/**
+ * Get data encoding used
+ *
+ * Get the data encoding that is use for encoding the data before sending.
+ * bEnc_NoneNrz_c means no encoding is used.
+ *
+ * @param sdev	Serial Communication handle
+ * @param enc	Encoding to use
+ */
+int ser4010_get_enc(struct serco *sdev, enum Ser4010Encoding *enc);
 
 /**
  * Reconfigure the RF module
