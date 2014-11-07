@@ -38,41 +38,40 @@
 #define SEND_COOKIE_3 0x96
 
 // Command frame bytes
-#define CMD_ID		0
-#define CMD_OPCODE	1
-#define CMD_PAYLOAD	2
+#define CMD_ID      0
+#define CMD_OPCODE  1
+#define CMD_PAYLOAD 2
 
 // Command opcodes
-#define CMD_NOP		0
-#define CMD_RESERVED	STUFF_BYTE1
+#define CMD_NOP          0
+#define CMD_RESERVED     STUFF_BYTE1
 
-#define CMD_GET_ODS	10
-#define CMD_SET_ODS	11
-#define CMD_GET_PA	12
-#define CMD_SET_PA	13
-#define CMD_GET_FREQ	14
-#define CMD_SET_FREQ	15
-#define CMD_GET_FDIV	16
-#define CMD_SET_FDIV	17
+#define CMD_GET_ODS      10
+#define CMD_SET_ODS      11
+#define CMD_GET_PA       12
+#define CMD_SET_PA       13
+#define CMD_GET_FREQ     14
+#define CMD_SET_FREQ     15
+#define CMD_GET_FDIV     16
+#define CMD_SET_FDIV     17
 
-#define CMD_LOAD_FRAME	 20
+#define CMD_LOAD_FRAME   20
 #define CMD_APPEND_FRAME 21
 
-#define CMD_RF_SETUP	50
-#define CMD_RF_SEND	51
+#define CMD_RF_SETUP     50
+#define CMD_RF_SEND      51
 
 // Response frame bytes
-#define RES_ID		0
-#define RES_STATUS	1
-#define RES_PAYLOAD	2
+#define RES_ID      0
+#define RES_STATUS  1
+#define RES_PAYLOAD 2
 
 // Response status codes
-#define STATUS_OK			0
-#define STATUS_RESERVED			STUFF_BYTE1
-#define STATUS_UNKNOWN_CMD		0x01
-#define STATUS_INVALID_FRAME_LEN	0x10
-
-#define STATUS_INVALID_FRAME_LEN	0x10
-#define STATUS_INVALID_SEND_COOKIE	0x50
+#define STATUS_OK                   0
+#define STATUS_RESERVED             STUFF_BYTE1
+#define STATUS_UNKNOWN_CMD          0x01
+#define STATUS_INVALID_FRAME_LEN    0x10
+#define STATUS_INVALID_SEND_COOKIE  0x50
+#define STATUS_TOO_MUCH_DATA        0x51
 
 #endif // __SERCO_DEFINES_H__

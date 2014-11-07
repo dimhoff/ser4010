@@ -45,39 +45,39 @@
 #define SEND_COOKIE_3 0x96
 
 // Command frame bytes
-#define CMD_ID		0
-#define CMD_OPCODE	1
-#define CMD_PAYLOAD	2
+#define CMD_ID      0
+#define CMD_OPCODE  1
+#define CMD_PAYLOAD 2
 
 // Command opcodes
-#define CMD_NOP			0
+#define CMD_NOP          0
 
-#define CMD_GET_ODS		10
-#define CMD_SET_ODS		11
-#define CMD_GET_PA		12
-#define CMD_SET_PA		13
-#define CMD_GET_FREQ	14
-#define CMD_SET_FREQ	15
-#define CMD_GET_FDIV	16
-#define CMD_SET_FDIV	17
+#define CMD_GET_ODS      10
+#define CMD_SET_ODS      11
+#define CMD_GET_PA       12
+#define CMD_SET_PA       13
+#define CMD_GET_FREQ     14
+#define CMD_SET_FREQ     15
+#define CMD_GET_FDIV     16
+#define CMD_SET_FDIV     17
 
-#define CMD_LOAD_FRAME	 20
+#define CMD_LOAD_FRAME   20
 #define CMD_APPEND_FRAME 21
 
-#define CMD_RF_SETUP	50
-#define CMD_RF_SEND		51
+#define CMD_RF_SETUP     50
+#define CMD_RF_SEND      51
 
 // Response frame bytes
-#define RES_ID		0
-#define RES_STATUS	1
-#define RES_PAYLOAD	2
+#define RES_ID      0
+#define RES_STATUS  1
+#define RES_PAYLOAD 2
 
 // Response status codes
-#define STATUS_OK					0
-#define STATUS_UNKNOWN_CMD			0x01
-#define STATUS_INVALID_FRAME_LEN	0x10
-#define STATUS_INVALID_SEND_COOKIE	0x50
-#define STATUS_TOO_MUCH_DATA		0x51
+#define STATUS_OK                   0
+#define STATUS_UNKNOWN_CMD          0x01
+#define STATUS_INVALID_FRAME_LEN    0x10
+#define STATUS_INVALID_SEND_COOKIE  0x50
+#define STATUS_TOO_MUCH_DATA        0x51
 
 // Transmission parameters
 tOds_Setup xdata rOdsSetup;
@@ -153,23 +153,23 @@ void rf_setup()
 void rf_transmit_frame(float freq, float fdiv, BYTE xdata *pbFrameHead, BYTE bLen, BYTE cnt)
 {
 	// Enable the Bandgap and LDO
-    vSys_BandGapLdo(1);
+	vSys_BandGapLdo(1);
 
 	// Tune to the right frequency and set FSK ferquency adjust
-    vFCast_Tune(freq);
-    vFCast_FskAdj(fdiv);
+	vFCast_Tune(freq);
+	vFCast_FskAdj(fdiv);
 
- 	// Wait for a temperature sample and adjust oscilator with it
-    while ( 0 == bDmdTs_GetSamplesTaken() ) {}
-    vPa_Tune( iDmdTs_GetLatestTemp() );
+	// Wait for a temperature sample and adjust oscilator with it
+	while ( 0 == bDmdTs_GetSamplesTaken() ) {}
+	vPa_Tune( iDmdTs_GetLatestTemp() );
 
 	// Run a single TX loop 
-    vStl_PreLoop();
+	vStl_PreLoop();
 	while (cnt != 0) {
-	    vStl_SingleTxLoop(pbFrameHead, bLen);
+		vStl_SingleTxLoop(pbFrameHead, bLen);
 		cnt--;
 	}
-    vStl_PostLoop();
+	vStl_PostLoop();
 
 	// Disable Bandgap and LDO to save power
 	vSys_BandGapLdo(0);
@@ -206,7 +206,7 @@ void main()
 	rOdsSetup.bClkDiv     = 5;
 	rOdsSetup.bEdgeRate   = 0;
 	rOdsSetup.bGroupWidth = 7;
-	rOdsSetup.wBitRate    = 2416;	// Bit width in seconds = (ods_datarate*(ods_ck_div+1))/24MHz
+	rOdsSetup.wBitRate    = 2416;   // Bit width in seconds = (ods_datarate*(ods_ck_div+1))/24MHz
 	rOdsSetup.bLcWarmInt  = 8;
 	rOdsSetup.bDivWarmInt = 5;
 	rOdsSetup.bPaWarmInt  = 4;
