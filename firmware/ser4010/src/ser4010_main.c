@@ -261,89 +261,107 @@ void main()
 		res_len = 0;
 		if (cmd_len < 2) {
 			res = STATUS_INVALID_FRAME_LEN;
-		} else if (cmd[CMD_OPCODE] == CMD_NOP) {
-			res = STATUS_OK;
-		} else if (cmd[CMD_OPCODE] == CMD_GET_ODS) {
-			res_len = sizeof(rOdsSetup);
-			memcpy(res_buf, &rOdsSetup, res_len);
-
-			res = STATUS_OK;
-		} else if (cmd[CMD_OPCODE] == CMD_SET_ODS) {
-			if (cmd_len - CMD_PAYLOAD != sizeof(rOdsSetup)) {
-				res = STATUS_INVALID_FRAME_LEN;
-			} else {
-				memcpy(&rOdsSetup, &cmd[CMD_PAYLOAD], sizeof(rOdsSetup));
-
-				res = STATUS_OK;
-			}
-		} else if (cmd[CMD_OPCODE] == CMD_GET_PA) {
-			res_len = sizeof(rPaSetup);
-			memcpy(res_buf, &rPaSetup, res_len);
-
-			res = STATUS_OK;
-		} else if (cmd[CMD_OPCODE] == CMD_SET_PA) {
-			if (cmd_len - CMD_PAYLOAD != sizeof(rPaSetup)) {
-				res = STATUS_INVALID_FRAME_LEN;
-			} else {
-				memcpy(&rPaSetup, &cmd[CMD_PAYLOAD], sizeof(rPaSetup));
-
-				res = STATUS_OK;
-			}
-		} else if (cmd[CMD_OPCODE] == CMD_GET_FREQ) {
-			res_len = sizeof(fFreq);
-			memcpy(res_buf, &fFreq, res_len);
-
-			res = STATUS_OK;
-		} else if (cmd[CMD_OPCODE] == CMD_SET_FREQ) {
-			if (cmd_len - CMD_PAYLOAD != sizeof(fFreq)) {
-				res = STATUS_INVALID_FRAME_LEN;
-			} else {
-				memcpy(&fFreq, &cmd[CMD_PAYLOAD], sizeof(fFreq));
-
-				res = STATUS_OK;
-			}
-		} else if (cmd[CMD_OPCODE] == CMD_GET_FDIV) {
-			res_len = sizeof(fFdiv);
-			memcpy(res_buf, &fFdiv, res_len);
-
-			res = STATUS_OK;
-		} else if (cmd[CMD_OPCODE] == CMD_SET_FDIV) {
-			if (cmd_len - CMD_PAYLOAD != sizeof(fFdiv)) {
-				res = STATUS_INVALID_FRAME_LEN;
-			} else {
-				memcpy(&fFdiv, &cmd[CMD_PAYLOAD], sizeof(fFdiv));
-
-				res = STATUS_OK;
-			}
-		} else if (cmd[CMD_OPCODE] == CMD_LOAD_FRAME) {
-			bFrameLen = cmd_len - 2;
-			memcpy(abFrameArray, &cmd[CMD_PAYLOAD], bFrameLen);
-			res = STATUS_OK;
-		} else if (cmd[CMD_OPCODE] == CMD_APPEND_FRAME) {
-			if (bMaxFrameSize_c - bFrameLen < cmd_len - CMD_PAYLOAD) {
-				res = STATUS_TOO_MUCH_DATA;
-			} else {
-				memcpy(&abFrameArray[bFrameLen], &cmd[CMD_PAYLOAD], cmd_len - CMD_PAYLOAD);
-				bFrameLen += cmd_len - CMD_PAYLOAD;
-				res = STATUS_OK;
-			}
-		} else if (cmd[CMD_OPCODE] == CMD_RF_SETUP) {
-			rf_setup();
-			res = STATUS_OK;
-		} else if (cmd[CMD_OPCODE] == CMD_RF_SEND) {
-			if (cmd_len - CMD_PAYLOAD != 5) {
-				res = STATUS_INVALID_FRAME_LEN;
-			} else if ( cmd[CMD_PAYLOAD + 0] != SEND_COOKIE_0 ||
-						cmd[CMD_PAYLOAD + 1] != SEND_COOKIE_1 ||
-						cmd[CMD_PAYLOAD + 2] != SEND_COOKIE_2 ||
-						cmd[CMD_PAYLOAD + 3] != SEND_COOKIE_3)
-			{
-				res = STATUS_INVALID_SEND_COOKIE;
-			} else {
-				rf_transmit_frame(fFreq, fFdiv, abFrameArray, bFrameLen, cmd[CMD_PAYLOAD+4]);
-			}
 		} else {
-			res = STATUS_UNKNOWN_CMD;
+			switch (cmd[CMD_OPCODE]) {
+			case  CMD_NOP:
+				res = STATUS_OK;
+				break;
+			case CMD_GET_ODS:
+				res_len = sizeof(rOdsSetup);
+				memcpy(res_buf, &rOdsSetup, res_len);
+
+				res = STATUS_OK;
+				break;
+			case CMD_SET_ODS:
+				if (cmd_len - CMD_PAYLOAD != sizeof(rOdsSetup)) {
+					res = STATUS_INVALID_FRAME_LEN;
+				} else {
+					memcpy(&rOdsSetup, &cmd[CMD_PAYLOAD], sizeof(rOdsSetup));
+
+					res = STATUS_OK;
+				}
+				break;
+			case CMD_GET_PA:
+				res_len = sizeof(rPaSetup);
+				memcpy(res_buf, &rPaSetup, res_len);
+
+				res = STATUS_OK;
+				break;
+			case CMD_SET_PA:
+				if (cmd_len - CMD_PAYLOAD != sizeof(rPaSetup)) {
+					res = STATUS_INVALID_FRAME_LEN;
+				} else {
+					memcpy(&rPaSetup, &cmd[CMD_PAYLOAD], sizeof(rPaSetup));
+
+					res = STATUS_OK;
+				}
+				break;
+			case CMD_GET_FREQ:
+				res_len = sizeof(fFreq);
+				memcpy(res_buf, &fFreq, res_len);
+
+				res = STATUS_OK;
+				break;
+			case CMD_SET_FREQ:
+				if (cmd_len - CMD_PAYLOAD != sizeof(fFreq)) {
+					res = STATUS_INVALID_FRAME_LEN;
+				} else {
+					memcpy(&fFreq, &cmd[CMD_PAYLOAD], sizeof(fFreq));
+
+					res = STATUS_OK;
+				}
+				break;
+			case CMD_GET_FDIV:
+				res_len = sizeof(fFdiv);
+				memcpy(res_buf, &fFdiv, res_len);
+
+				res = STATUS_OK;
+				break;
+			case CMD_SET_FDIV:
+				if (cmd_len - CMD_PAYLOAD != sizeof(fFdiv)) {
+					res = STATUS_INVALID_FRAME_LEN;
+				} else {
+					memcpy(&fFdiv, &cmd[CMD_PAYLOAD], sizeof(fFdiv));
+
+					res = STATUS_OK;
+				}
+				break;
+			case CMD_LOAD_FRAME:
+				bFrameLen = cmd_len - 2;
+				memcpy(abFrameArray, &cmd[CMD_PAYLOAD], bFrameLen);
+				res = STATUS_OK;
+				break;
+			case CMD_APPEND_FRAME:
+				if (bMaxFrameSize_c - bFrameLen < cmd_len - CMD_PAYLOAD) {
+					res = STATUS_TOO_MUCH_DATA;
+				} else {
+					memcpy(&abFrameArray[bFrameLen], &cmd[CMD_PAYLOAD], cmd_len - CMD_PAYLOAD);
+					bFrameLen += cmd_len - CMD_PAYLOAD;
+					res = STATUS_OK;
+				}
+				break;
+			case CMD_RF_SETUP:
+				rf_setup();
+				res = STATUS_OK;
+				break;
+			case CMD_RF_SEND:
+				if (cmd_len - CMD_PAYLOAD != 5) {
+					res = STATUS_INVALID_FRAME_LEN;
+				} else if ( cmd[CMD_PAYLOAD + 0] != SEND_COOKIE_0 ||
+							cmd[CMD_PAYLOAD + 1] != SEND_COOKIE_1 ||
+							cmd[CMD_PAYLOAD + 2] != SEND_COOKIE_2 ||
+							cmd[CMD_PAYLOAD + 3] != SEND_COOKIE_3)
+				{
+					res = STATUS_INVALID_SEND_COOKIE;
+				} else {
+					rf_transmit_frame(fFreq, fFdiv, abFrameArray, bFrameLen, cmd[CMD_PAYLOAD+4]);
+					res = STATUS_OK;
+				}
+				break;
+			default:
+				res = STATUS_UNKNOWN_CMD;
+				break;
+			}
 		}
 		
 
