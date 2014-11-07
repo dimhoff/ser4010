@@ -217,6 +217,7 @@ void main()
 
 		// Parse and execute command
 		res_len = 0;
+		res = STATUS_LOGIC_ERROR;
 		if (cmd_len < 2) {
 			res = STATUS_INVALID_FRAME_LEN;
 		} else {

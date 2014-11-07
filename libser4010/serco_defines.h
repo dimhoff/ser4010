@@ -70,6 +70,7 @@
 #define STATUS_OK                   0
 #define STATUS_RESERVED             STUFF_BYTE1
 #define STATUS_UNKNOWN_CMD          0x01
+#define STATUS_LOGIC_ERROR          0x02
 #define STATUS_INVALID_FRAME_LEN    0x10
 #define STATUS_INVALID_SEND_COOKIE  0x50
 #define STATUS_TOO_MUCH_DATA        0x51
