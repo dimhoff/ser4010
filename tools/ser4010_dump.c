@@ -62,6 +62,18 @@ const char *modulation_type_to_str(int type)
 	return strings[type];
 }
 
+const char *encoding_to_str(int enc)
+{
+	static const char *strings[4] = {
+		"None/NRZ",
+		"Manchester",
+		"4b5b",
+		"Invalid"
+	};
+	if (enc > 2 || enc < 0) enc = 3;
+	return strings[enc];
+}
+
 int main(int argc, char *argv[])
 {
 	int opt;
@@ -74,6 +86,7 @@ int main(int argc, char *argv[])
 	uint16_t dev_rev;
 	tOds_Setup ods_data;
 	tPa_Setup pa_data;
+	enum Ser4010Encoding enc;
 	float freq;
 	float fdiv;
 
@@ -144,6 +157,16 @@ int main(int argc, char *argv[])
 		goto bad;
 	}
 
+	ret = ser4010_get_enc(&sdev, &enc);
+	if (ret != STATUS_OK) {
+		if (ret > 0) {
+			fprintf(stderr, "ser4010_get_enc(): "
+				"Result status indicates error 0x%.2x\n", ret);
+		}
+		retval = EXIT_FAILURE;
+		goto bad;
+	}
+
 	ret = ser4010_get_freq(&sdev, &freq);
 	if (ret != STATUS_OK) {
 		if (ret > 0) {
@@ -163,7 +186,7 @@ int main(int argc, char *argv[])
 	}
 
 	printf("Device Info:\n");
-	printf("-----------\n");
+	printf("------------\n");
 	printf("Device Type: 0x%04hx\n", dev_type);
 	printf("Device Revision: %hu\n", dev_rev);
 	printf("\n");
@@ -185,6 +208,10 @@ int main(int argc, char *argv[])
 	printf("bLevel: %u\n", pa_data.bLevel);
 	printf("bMaxDrv: %u\n", pa_data.bMaxDrv);
 	printf("wNominalCap: %u\n", pa_data.wNominalCap);
+	printf("\n");
+	printf("Encoder settings:\n");
+	printf("------------\n");
+	printf("Encoding: %s (%u)\n", encoding_to_str(enc), enc);
 	printf("\n");
 	printf("Freq settings:\n");
 	printf("------------\n");
