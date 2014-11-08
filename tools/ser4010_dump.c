@@ -70,6 +70,8 @@ int main(int argc, char *argv[])
 	int ret;
 	int retval = EXIT_SUCCESS;
 
+	uint16_t dev_type;
+	uint16_t dev_rev;
 	tOds_Setup ods_data;
 	tPa_Setup pa_data;
 	float freq;
@@ -100,6 +102,28 @@ int main(int argc, char *argv[])
 
 	if (serco_open(&sdev, dev_path) != 0) {
 		exit(EXIT_FAILURE);
+	}
+
+	ret = ser4010_get_dev_type(&sdev, &dev_type);
+	if (ret != STATUS_OK) {
+		if (ret > 0) {
+			fprintf(stderr, "ser4010_get_dev_type(): "
+				"Result status indicates error 0x%.2x\n",
+				ret);
+		}
+		retval = EXIT_FAILURE;
+		goto bad;
+	}
+
+	ret = ser4010_get_dev_rev(&sdev, &dev_rev);
+	if (ret != STATUS_OK) {
+		if (ret > 0) {
+			fprintf(stderr, "ser4010_get_dev_rev(): "
+				"Result status indicates error 0x%.2x\n",
+				ret);
+		}
+		retval = EXIT_FAILURE;
+		goto bad;
 	}
 
 	ret = ser4010_get_ods(&sdev, &ods_data);
@@ -138,6 +162,11 @@ int main(int argc, char *argv[])
 		goto bad;
 	}
 
+	printf("Device Info:\n");
+	printf("-----------\n");
+	printf("Device Type: 0x%04hx\n", dev_type);
+	printf("Device Revision: %hu\n", dev_rev);
+	printf("\n");
 	printf("ODS settings:\n");
 	printf("------------\n");
 	printf("bModulationType: %s (%u)\n", modulation_type_to_str(ods_data.bModulationType), ods_data.bModulationType);

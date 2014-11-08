@@ -1,3 +1,13 @@
+Generic
+ - Don't have serco_defines.h in two places.
+
 Firmware
- - Add command to get firmware version
- - Write my own firmware/ser4010/src/custom_startup.a51 instead of using the copyrighted one from silabs...
+ - Write my own firmware/ser4010/src/custom_startup.a51 instead of using the
+   copyrighted one from silabs...
+
+libser4010
+ - Hide serco from user
+ - Better error codes/No more fprintf's in library
+ - Auto device type and device revision checking
+ - High level api that implements the calculations from the si4010 Calculator
+   Excel sheet. Eg. enter fdiv in hz, and baud in Bps, etc.

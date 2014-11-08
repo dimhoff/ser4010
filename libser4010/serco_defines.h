@@ -29,9 +29,15 @@
 #ifndef __SERCO_DEFINES_H__
 #define __SERCO_DEFINES_H__
 
+// SER4010 firmware version info
+#define SER4010_DEV_TYPE 0x0100
+#define SER4010_DEV_REV  0x0001
+
+// Byte stuffing bytes
 #define STUFF_BYTE1 0xFF
 #define STUFF_BYTE2 0xAF
 
+// Magic send cookie; used to prevent accidental sends
 #define SEND_COOKIE_0 0xca
 #define SEND_COOKIE_1 0x4f
 #define SEND_COOKIE_2 0x09
@@ -43,8 +49,10 @@
 #define CMD_PAYLOAD 2
 
 // Command opcodes
-#define CMD_NOP          0
 #define CMD_RESERVED     STUFF_BYTE1
+#define CMD_NOP          0
+#define CMD_DEV_TYPE     1
+#define CMD_DEV_REV      2
 
 #define CMD_GET_ODS      10
 #define CMD_SET_ODS      11

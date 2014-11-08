@@ -228,6 +228,20 @@ void main()
 			case  CMD_NOP:
 				res = STATUS_OK;
 				break;
+			case CMD_DEV_TYPE:
+				res_len = 2;
+				res_buf[0] = SER4010_DEV_TYPE >> 8;
+				res_buf[1] = SER4010_DEV_TYPE & 0xff;
+
+				res = STATUS_OK;
+				break;
+			case CMD_DEV_REV:
+				res_len = 2;
+				res_buf[0] = SER4010_DEV_REV >> 8;
+				res_buf[1] = SER4010_DEV_REV & 0xff;
+
+				res = STATUS_OK;
+				break;
 			case CMD_GET_ODS:
 				res_len = sizeof(rOdsSetup);
 				memcpy(res_buf, &rOdsSetup, res_len);

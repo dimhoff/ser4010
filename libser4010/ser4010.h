@@ -101,6 +101,33 @@ enum Ser4010Encoding {
 	bEnc_4b5b_c       = 2,   /**< 4b-5b encoding */
 };
 
+/**
+ * Get device type
+ *
+ * Get the device type of device connected to serial bus. This must always
+ * return SER4010_DEV_TYPE.
+ * TODO: this should be auto checked by libser4010; hide serco in ser4010
+ * object, and implement a ser4010_open()?
+ *
+ * @param sdev		Serial Communication handle
+ * @param dev_type	Device type of connected device, must be
+ *			SER4010_DEV_TYPE
+ */
+int ser4010_get_dev_type(struct serco *sdev, uint16_t *dev_type);
+
+/**
+ * Get device revision
+ *
+ * Get the revision of the device firmware. This version of the library is
+ * atleast compatible with revision SER4010_DEV_REV.
+ * TODO: this should be auto checked by libser4010 for compatibility. Best is to
+ * allow compatible commands; hide serco in ser4010 object, and implement a
+ * ser4010_open()?
+ *
+ * @param sdev		Serial Communication handle
+ * @param dev_type	Device firmware revision.
+ */
+int ser4010_get_dev_rev(struct serco *sdev, uint16_t *dev_rev);
 
 /**
  * Set Output Data Serializer configuration

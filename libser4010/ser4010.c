@@ -61,6 +61,46 @@ inline float htobefloat(float x)
 }
 ///@}
 
+int ser4010_get_dev_type(struct serco *sdev, uint16_t *dev_type)
+{
+	int ret;
+	size_t res_len;
+
+	res_len = sizeof(uint16_t);
+	ret = serco_send_command(sdev, CMD_DEV_TYPE, NULL, 0, dev_type, &res_len);
+	if (ret != STATUS_OK) {
+		return ret;
+	}
+	if (res_len != sizeof(uint16_t)) {
+		return -1000;
+	}
+
+	// Fix endianness
+	*dev_type = be16toh(*dev_type);
+
+	return 0;
+}
+
+int ser4010_get_dev_rev(struct serco *sdev, uint16_t *dev_rev)
+{
+	int ret;
+	size_t res_len;
+
+	res_len = sizeof(uint16_t);
+	ret = serco_send_command(sdev, CMD_DEV_REV, NULL, 0, dev_rev, &res_len);
+	if (ret != STATUS_OK) {
+		return ret;
+	}
+	if (res_len != sizeof(uint16_t)) {
+		return -1000;
+	}
+
+	// Fix endianness
+	*dev_rev = be16toh(*dev_rev);
+
+	return 0;
+}
+
 int ser4010_set_ods(struct serco *sdev, const tOds_Setup *ods_config)
 {
 	tOds_Setup l_ods_config;
