@@ -256,11 +256,6 @@ int ser4010_get_enc(struct serco *sdev, enum Ser4010Encoding *enc)
 	return 0;
 }
 
-int ser4010_reconfigure(struct serco *sdev)
-{
-	return serco_send_command(sdev, CMD_RF_SETUP, NULL, 0, NULL, 0);
-}
-
 int ser4010_load_frame(struct serco *sdev, uint8_t *data, size_t len)
 {
 	return serco_send_command(sdev, CMD_LOAD_FRAME, data, len, NULL, 0);

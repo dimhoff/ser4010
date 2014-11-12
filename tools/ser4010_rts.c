@@ -122,11 +122,6 @@ int ser4010_rts_init(struct serco *sdev)
 		return ret;
 	}
 
-	ret = ser4010_reconfigure(sdev);
-	if (ret != STATUS_OK) {
-		return ret;
-	}
-
 	return STATUS_OK;
 }
 

@@ -77,7 +77,20 @@ void vIsr_Dmd(void) interrupt INTERRUPT_DMD using 2
 //-----------------------------------------------------------------------------
 //-- Radio helpers
 //-----------------------------------------------------------------------------
-void rf_setup()
+
+void rf_configure()
+{
+	// Required bPA_TRIM clearing before calling vPa_Setup() 
+	vPa_Setup( &rPaSetup );
+
+	// ODS setup 
+	vOds_Setup( &rOdsSetup );
+
+	// Setup the STL encoding for none.
+	vStl_EncodeSetup( bEnc, NULL );
+}
+
+void rf_init()
 {
 
 	// Set DMD interrupt to high priority,
@@ -93,17 +106,11 @@ void rf_setup()
 	// bSys_FirstBatteryInsertWaitTime set to non zero value. 
 	vSys_BandGapLdo( 1 );
 
-	// Required bPA_TRIM clearing before calling vPa_Setup() 
-	vPa_Setup( &rPaSetup );
-
-	// ODS setup 
-	vOds_Setup( &rOdsSetup );
-
-	// Setup the STL encoding for none.
-	vStl_EncodeSetup( bEnc, NULL );
-
 	// Setup and run the frequency casting. 
 	vFCast_Setup();
+
+	// Configure RF components
+	rf_configure();
 
 	// Disable Bandgap and LDO till needed
 	vSys_BandGapLdo(0);
@@ -114,11 +121,12 @@ void rf_transmit_frame(float freq, float fdiv, BYTE xdata *pbFrameHead, BYTE bLe
 	// Enable the Bandgap and LDO
 	vSys_BandGapLdo(1);
 
+	// Configure RF components
+	rf_configure();
+
 	// Tune to the right frequency and set FSK ferquency adjust
 	vFCast_Tune(freq);
 	vFCast_FskAdj(fdiv);
-
-	// Wait for a temperature sample and adjust oscilator with it
 	while ( 0 == bDmdTs_GetSamplesTaken() ) {}
 	vPa_Tune( iDmdTs_GetLatestTemp() );
 
@@ -177,7 +185,7 @@ void main()
 
 	// Init various components
 	ser_init();
-	rf_setup();
+	rf_init();
 
 	// Main loop
 	while ( 1 )
@@ -333,10 +341,6 @@ void main()
 					res = STATUS_OK;
 				}
 				break;
-			case CMD_RF_SETUP:
-				rf_setup();
-				res = STATUS_OK;
-				break;
 			case CMD_RF_SEND:
 				if (cmd_len - CMD_PAYLOAD != 5) {
 					res = STATUS_INVALID_FRAME_LEN;
@@ -356,7 +360,6 @@ void main()
 				break;
 			}
 		}
-		
 
 		// Send Response
 		byte_stuff_putc(cmd[CMD_ID]);

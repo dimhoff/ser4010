@@ -31,7 +31,7 @@
 
 // SER4010 firmware version info
 #define SER4010_DEV_TYPE 0x0100
-#define SER4010_DEV_REV  0x0001
+#define SER4010_DEV_REV  0x0002
 
 // Byte stuffing bytes
 #define STUFF_BYTE1 0xFF
@@ -68,7 +68,6 @@
 #define CMD_LOAD_FRAME   20
 #define CMD_APPEND_FRAME 21
 
-#define CMD_RF_SETUP     50
 #define CMD_RF_SEND      51
 
 // Response frame bytes

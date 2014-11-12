@@ -226,16 +226,6 @@ int ser4010_set_enc(struct serco *sdev, enum Ser4010Encoding enc);
 int ser4010_get_enc(struct serco *sdev, enum Ser4010Encoding *enc);
 
 /**
- * Reconfigure the RF module
- *
- * Trigger a reconfiguration of the RF blocks. This must always be called after
- * changing the RF config to activate the changes.
- *
- * @param sdev	Serial Communication handle
- */
-int ser4010_reconfigure(struct serco *sdev);
-
-/**
  * Load frame data
  *
  * Load the frame data to send. Every byte in the frame is send LSB first. Only
