@@ -102,6 +102,34 @@ enum Ser4010Encoding {
 };
 
 /**
+ * Configure SER4010 radio parameters
+ *
+ * This function offers a high level interface to configure the SER4010 radio
+ * parameters. The Power Amplifier is not configured by this function, but the
+ * default should be good enough.
+ *
+ * @param freq_mhz	Carrier frequency in MHz
+ * @param fdev_khz	The FSK frequency deviation in KHz. This argument is
+ * 			ignored when using OOK modulation. Note that this value
+ * 			can get clipped without error. In general values
+ * 			smaller than 130 ppm of the carrier frequency should be
+ * 			ok.
+ * @param modulation	The modulation type(eg. ODS_MODULATION_TYPE_OOK or
+ *			ODS_MODULATION_TYPE_FSK)
+ * @param encoding	Data encoding to use
+ * @param data_rate_kbps	The data rate in kbps.
+ * @param bits_per_byte	The number of bit to actually transmit from every input
+ *			byte. Eg. if set to 5 only the 5 least significant bits
+ *			of every byte input data is actually transmitted.
+ *
+ * @returns		0 on success else an error occurred
+ */
+int ser4010_config(struct serco *sdev,
+			float freq_mhz, float fdev_khz,
+			int modulation, enum Ser4010Encoding encoding,
+			double data_rate_kbps, int bits_per_byte);
+
+/**
  * Get device type
  *
  * Get the device type of device connected to serial bus. This must always
