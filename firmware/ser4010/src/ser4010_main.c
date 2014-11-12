@@ -42,7 +42,7 @@ tOds_Setup xdata rOdsSetup;
 tPa_Setup xdata  rPaSetup;
 BYTE bEnc;
 float fFreq;
-float fFdiv;
+BYTE bFskDev;
 
 #define bMaxFrameSize_c 256
 BYTE xdata abFrameArray[bMaxFrameSize_c];
@@ -116,7 +116,7 @@ void rf_init()
 	vSys_BandGapLdo(0);
 }
 
-void rf_transmit_frame(float freq, float fdiv, BYTE xdata *pbFrameHead, BYTE bLen, BYTE cnt)
+void rf_transmit_frame(float freq, BYTE fdev, BYTE xdata *pbFrameHead, BYTE bLen, BYTE cnt)
 {
 	// Enable the Bandgap and LDO
 	vSys_BandGapLdo(1);
@@ -126,7 +126,7 @@ void rf_transmit_frame(float freq, float fdiv, BYTE xdata *pbFrameHead, BYTE bLe
 
 	// Tune to the right frequency and set FSK ferquency adjust
 	vFCast_Tune(freq);
-	vFCast_FskAdj(fdiv);
+	vFCast_FskAdj(fdev);
 	while ( 0 == bDmdTs_GetSamplesTaken() ) {}
 	vPa_Tune( iDmdTs_GetLatestTemp() );
 
@@ -181,7 +181,7 @@ void main()
 	bEnc  = bEnc_NoneNrz_c;
 
 	fFreq = 433.9e6;
-	fFdiv = 127;
+	bFskDev = 104;
 
 	// Init various components
 	ser_init();
@@ -295,17 +295,17 @@ void main()
 					res = STATUS_OK;
 				}
 				break;
-			case CMD_GET_FDIV:
-				res_len = sizeof(fFdiv);
-				memcpy(res_buf, &fFdiv, res_len);
+			case CMD_GET_FDEV:
+				res_len = 1;
+				res_buf[0] = bFskDev;
 
 				res = STATUS_OK;
 				break;
-			case CMD_SET_FDIV:
-				if (cmd_len - CMD_PAYLOAD != sizeof(fFdiv)) {
+			case CMD_SET_FDEV:
+				if (cmd_len - CMD_PAYLOAD != 1) {
 					res = STATUS_INVALID_FRAME_LEN;
 				} else {
-					memcpy(&fFdiv, &cmd[CMD_PAYLOAD], sizeof(fFdiv));
+					bFskDev = cmd[CMD_PAYLOAD];
 
 					res = STATUS_OK;
 				}
@@ -351,7 +351,7 @@ void main()
 				{
 					res = STATUS_INVALID_SEND_COOKIE;
 				} else {
-					rf_transmit_frame(fFreq, fFdiv, abFrameArray, bFrameLen, cmd[CMD_PAYLOAD+4]);
+					rf_transmit_frame(fFreq, bFskDev, abFrameArray, bFrameLen, cmd[CMD_PAYLOAD+4]);
 					res = STATUS_OK;
 				}
 				break;

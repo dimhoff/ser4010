@@ -201,30 +201,24 @@ int ser4010_get_freq(struct serco *sdev, float *freq)
 	return 0;
 }
 
-int ser4010_set_fdiv(struct serco *sdev, float fdiv)
+int ser4010_set_fdev(struct serco *sdev, uint8_t fdev)
 {
-	// Fix endianness
-	fdiv = htobefloat(fdiv);
-
-	return serco_send_command(sdev, CMD_SET_FDIV, &fdiv, sizeof(float), NULL, 0);
+	return serco_send_command(sdev, CMD_SET_FDEV, &fdev, sizeof(uint8_t), NULL, 0);
 }
 
-int ser4010_get_fdiv(struct serco *sdev, float *fdiv)
+int ser4010_get_fdev(struct serco *sdev, uint8_t *fdev)
 {
 	int ret;
 	size_t res_len;
 
-	res_len = sizeof(float);
-	ret = serco_send_command(sdev, CMD_GET_FDIV, NULL, 0, fdiv, &res_len);
+	res_len = sizeof(uint8_t);
+	ret = serco_send_command(sdev, CMD_GET_FDEV, NULL, 0, fdev, &res_len);
 	if (ret != STATUS_OK) {
 		return ret;
 	}
-	if (res_len != sizeof(float)) {
+	if (res_len != sizeof(uint8_t)) {
 		return -1000;
 	}
-
-	// Fix endianness
-	*fdiv = befloattoh(*fdiv);
 
 	return 0;
 }

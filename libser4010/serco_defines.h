@@ -31,7 +31,7 @@
 
 // SER4010 firmware version info
 #define SER4010_DEV_TYPE 0x0100
-#define SER4010_DEV_REV  0x0002
+#define SER4010_DEV_REV  0x0003
 
 // Byte stuffing bytes
 #define STUFF_BYTE1 0xFF
@@ -60,8 +60,8 @@
 #define CMD_SET_PA       13
 #define CMD_GET_FREQ     14
 #define CMD_SET_FREQ     15
-#define CMD_GET_FDIV     16
-#define CMD_SET_FDIV     17
+#define CMD_GET_FDEV     16
+#define CMD_SET_FDEV     17
 #define CMD_GET_ENC      18
 #define CMD_SET_ENC      19
 

@@ -186,9 +186,9 @@ int ser4010_get_freq(struct serco *sdev, float *freq);
  * si4010_calc_regs_110107.xls spreadsheet.
  *
  * @param sdev	Serial Communication handle
- * @param fdiv	Magic value between 0 and 104 indicating frequency deviation
+ * @param fdev	Magic value between 0 and 104 indicating frequency deviation
  */
-int ser4010_set_fdiv(struct serco *sdev, float fdiv);
+int ser4010_set_fdev(struct serco *sdev, uint8_t fdev);
 
 /**
  * Get FSK frequency deviation
@@ -199,9 +199,9 @@ int ser4010_set_fdiv(struct serco *sdev, float fdiv);
  * si4010_calc_regs_110107.xls spreadsheet.
  *
  * @param sdev	Serial Communication handle
- * @param fdiv	Magic value between 0 and 104 indicating frequency deviation
+ * @param fdev	Magic value between 0 and 104 indicating frequency deviation
  */
-int ser4010_get_fdiv(struct serco *sdev, float *fdiv);
+int ser4010_get_fdev(struct serco *sdev, uint8_t *fdev);
 
 /**
  * Set data encoding to use

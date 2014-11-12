@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 	tPa_Setup pa_data;
 	enum Ser4010Encoding enc;
 	float freq;
-	float fdiv;
+	uint8_t fdev;
 
 	dev_path = DEVICE;
 
@@ -176,7 +176,7 @@ int main(int argc, char *argv[])
 		goto bad;
 	}
 
-	ret = ser4010_get_fdiv(&sdev, &fdiv);
+	ret = ser4010_get_fdev(&sdev, &fdev);
 	if (ret != STATUS_OK) {
 		if (ret > 0) {
 			fprintf(stderr, "Result status indicates error 0x%.2x\n", ret);
@@ -216,7 +216,7 @@ int main(int argc, char *argv[])
 	printf("Freq settings:\n");
 	printf("------------\n");
 	printf("frequency: %f\n", freq);
-	printf("freq. deviation: %f\n", fdiv);
+	printf("freq. deviation: %u\n", fdev);
 bad:
 	serco_close(&sdev);
 	return retval;
