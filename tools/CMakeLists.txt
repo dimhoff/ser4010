@@ -7,6 +7,9 @@ target_link_libraries(ser4010_kaku ser4010)
 add_executable(blindctl_somfy blindctl_somfy.c ser4010_rts.c)
 target_link_libraries(blindctl_somfy ser4010)
 
+add_executable(ser4010_si443x ser4010_si443x.c pn9.c crc_16.c dehexify.c)
+target_link_libraries(ser4010_si443x ser4010)
+
 add_executable(test_comm test_comm.c)
 target_link_libraries(test_comm ser4010)
 
