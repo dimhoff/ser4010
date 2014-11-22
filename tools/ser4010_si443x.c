@@ -377,10 +377,10 @@ int main(int argc, char *argv[])
 						"not a valid number\n");
 					exit(EXIT_FAILURE);
 				}
-				if (fdev > 1 || freq > 130) {
+				if (fdev < 1 || fdev > 130) {
 					fprintf(stderr,
 						"Frequency deviation out of "
-						"range (1 < freq < 130)\n");
+						"range (1 < fdev < 130)\n");
 					exit(EXIT_FAILURE);
 				}
 
