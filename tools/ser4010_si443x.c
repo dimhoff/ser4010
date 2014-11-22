@@ -293,7 +293,7 @@ void usage(const char *name)
 		"                            Value should be in the range 1-130. Note that the\n"
 		"                            actual max. deviation is clipped at about 135 ppm\n"
 		"                            of the carrier frequency.\n"
-		"  -r, --bit-rate=RATE       Bit rate in kbit/s (default: 9k6)\n"
+		"  -r, --bit-rate=RATE       Bit rate in kbit/s (default: 9.6)\n"
 		"  --preamble-length=LEN     Preamble length in byte (default: 4)\n"
 		"  --preamble-invert         Invert preamble\n"
 		"  --sync-word=SYNC_WORD     Sync word as 1-4 byte hex. string (default: 2dd4)\n"
