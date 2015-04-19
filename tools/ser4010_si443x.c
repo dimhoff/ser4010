@@ -35,6 +35,8 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include "config.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -49,8 +51,6 @@
 #include "ser4010.h"
 #include "crc_16.h"
 #include "pn9.h"
-
-#define DEVICE "/dev/ttyUSB0"
 
 /**
  * Reverse bit order in a byte
@@ -317,7 +317,7 @@ void usage(const char *name)
 
 int main(int argc, char *argv[])
 {
-	const char *dev_path = DEVICE;
+	const char *dev_path = DEFAULT_SERIAL_DEV;
 	struct serco sdev;
 
 	bool hex_input = false;

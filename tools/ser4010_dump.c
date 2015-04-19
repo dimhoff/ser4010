@@ -26,6 +26,8 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include "config.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -37,8 +39,6 @@
 
 #include "serco.h"
 #include "ser4010.h"
-
-#define DEVICE "/dev/ttyUSB0"
 
 void usage(const char *name)
 {
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 	float freq;
 	uint8_t fdev;
 
-	dev_path = DEVICE;
+	dev_path = DEFAULT_SERIAL_DEV;
 
 	while ((opt = getopt(argc, argv, "d:h")) != -1) {
 		switch (opt) {

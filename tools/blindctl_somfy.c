@@ -27,6 +27,8 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include "config.h"
+
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -254,7 +256,7 @@ int main(int argc, char **argv)
 
 	int retval = 1;
 
-	dev_path = "/dev/ttyUSB0";
+	dev_path = DEFAULT_SERIAL_DEV;
 
 	while ((opt = getopt(argc, argv, "rlD:h")) != -1) {
 		switch (opt) {

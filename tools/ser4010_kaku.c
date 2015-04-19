@@ -26,6 +26,8 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include "config.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -36,8 +38,6 @@
 
 #include "serco.h"
 #include "ser4010.h"
-
-#define DEVICE "/dev/ttyUSB0"
 
 #define wKaku_BitRate_c		(1100)	// Rate at which bits are serialized, KaKu = 275 us
 					// Bit width in seconds = (bit_rate*(ods_ck_div+1))/24MHz
@@ -215,7 +215,7 @@ int main(int argc, char *argv[])
 	int unit;
 	int ret;
 
-	dev_path = strdup(DEVICE);
+	dev_path = strdup(DEFAULT_SERIAL_DEV);
 
 	while ((opt = getopt(argc, argv, "d:h")) != -1) {
 		switch (opt) {
