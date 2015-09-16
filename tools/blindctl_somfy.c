@@ -63,8 +63,41 @@ void usage(char *my_name) {
 			" -l         Generate long button press\n"
 			" -h         Display this help message\n"
 		);
+	fprintf(stderr, "\n"
+			"'key' is a fixed length hexadecimal strings of 2 characters (eg. 01).\n"
+			"'address' is a fixed length hexadecimal strings of 6 characters (eg. 001122).\n"
+			"'sequence' is a number with optionally base prefixed (eg. 123 or 0xfb).\n");
+	fprintf(stderr, "\n"
+			"State files contain a single line with the following format:\n"
+			"    KK AAAAAA RRRR\n"
+			"Where:\n"
+			" KK = Key byte in Hexadecimal.\n"
+			" AAAAAA = Address in Hexadecimal.\n"
+			" RRRR = Rolling code in Hexadecimal.\n"
+			"State files are automatically updated to the next sequence and key after use.\n");
+
 }
 
+/**
+ * Read state file
+ *
+ * Read the current state from file. The file should contain a single line in
+ * the following format, without leading or trailing space:
+ *
+ *     KK AAAAAA RRRR
+ *
+ * Where:
+ * KK = Key byte in Hexadecimal
+ * AAAAAA = Address in Hexadecimal
+ * RRRR = Rolling code in Hexadecimal
+ *
+ * @param path	Path to state file
+ * @param key	Pointer to variable to return key in
+ * @param addr	Pointer to variable to return address in
+ * @param seq	Pointer to variable to return rolling code in
+ *
+ * @return	0 on success, -1 on failure
+ **/
 int read_state_file(const char *path, uint8_t *key, uint32_t *addr, uint16_t *seq)
 {
 	FILE *fp;
@@ -133,7 +166,6 @@ bad:
 
 uint8_t somfy_calc_checksum(uint8_t frame[7])
 {
-//TODO: XXXIFY
 	int checksum=0;
 	int i;
 
@@ -160,7 +192,6 @@ int send_somfy_raw(struct serco *dev, uint8_t data[7])
 
 int send_somfy_command(struct serco *dev, uint8_t key, uint32_t addr, uint16_t seq, somfy_control_t ctrl)
 {
-//TODO: XXXIFY
 	unsigned char frame[7];
 	int i;
 
