@@ -353,16 +353,16 @@ int main(int argc, char **argv)
 			optind++;
 		} else {
 			key = strtol(argv[optind], &sp, 16);
-			if (*sp != '\0') {
-				fprintf(stderr, "illegal key format\n");
+			if (*sp != '\0' || strlen(argv[optind]) != 2) {
+				fprintf(stderr, "key must be a hexadecimal 1 byte string(eg. 01)\n");
 				usage(argv[0]);
 				exit(1);
 			}
 			optind++;
 
 			addr = strtol(argv[optind], &sp, 16);
-			if (*sp != '\0') {
-				fprintf(stderr, "illegal address format\n");
+			if (*sp != '\0' || strlen(argv[optind]) != 6) {
+				fprintf(stderr, "address must be a hexadecimal 3 byte string(eg. 001122)\n");
 				usage(argv[0]);
 				exit(1);
 			}
