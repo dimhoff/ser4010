@@ -1,0 +1,15 @@
+# 0.2.0
+
+ * New tool, ser4010_si443x, for transmitting to a Si443x based receiver
+ * New function for easy transmitter configuration: ser4010_config()
+ * New functions to identify device: ser4010_get_dev_type(), ser4010_get_dev_rev()
+ * New functions to change data encoding: ser4010_{get,set}_enc()
+ * Updated ser4010_dump to print device information and encoding. This breaks
+   compatibility with old firmware
+ * Removed ser4010_reconfigure() as configuration is done automatically
+ * Changed default FSK deviation
+ * Small fixes and documentation changes
+
+# 0.1.0
+
+ * Initial release
