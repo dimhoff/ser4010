@@ -45,6 +45,7 @@ void usage(const char *name)
 		"\n"
 		"Options:\n"
 		" -d <path>	Path to serial device file\n"
+		" -q		Suppress normal output\n"
 		" -h		Print this help message\n"
 		, name);
 }
@@ -55,14 +56,18 @@ int main(int argc, char *argv[])
 	char *dev_path;
 	struct serco sdev;
 	int ret;
+	bool quiet = false;
 
 	dev_path = strdup(DEFAULT_SERIAL_DEV);
 
-	while ((opt = getopt(argc, argv, "d:h")) != -1) {
+	while ((opt = getopt(argc, argv, "d:hq")) != -1) {
 		switch (opt) {
 		case 'd':
 			free(dev_path);
 			dev_path = strdup(optarg);
+			break;
+		case 'q':
+			quiet = true;
 			break;
 		case 'h':
 			usage(argv[0]);
@@ -89,11 +94,16 @@ int main(int argc, char *argv[])
 	serco_close(&sdev);
 
 	if (ret != STATUS_OK) {
-		if (ret > 0) {
-			fprintf(stderr, "Result status indicates error 0x%.2x\n", ret);
+		if (!quiet) {
+			if (ret > 0) {
+				printf("ser4010 returned error status: 0x%02x\n", ret);
+			} else {
+				printf("Communication Failed\n");
+			}
 		}
-		exit(EXIT_FAILURE);
+	} else if (!quiet) {
+		printf("Communication OK\n");
 	}
 
-	return 0;
+	return (ret == STATUS_OK) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
