@@ -1,5 +1,5 @@
 /**
- * blindctl_somfy.c - Control Somfy RTS blinds through SI4010 radio PHY with
+ * ser4010_somfy.c - Control Somfy RTS blinds through SI4010 radio PHY with
  *                    SER4010 firmware
  *
  * Copyright (c) 2014, David Imhoff <dimhoff.devel@gmail.com>
@@ -136,7 +136,7 @@ int read_state_file(const char *path, uint8_t *key, uint32_t *addr, uint16_t *se
 		fprintf(stderr, "illegal sequence format\n");
 		goto bad;
 	}
-	
+
 	retval = 0;
 bad:
 	fclose(fp);
@@ -324,7 +324,7 @@ int main(int argc, char **argv)
 			fprintf(stderr, "data must be a hexadecimal 56-bit/7 byte(eg. 11223344556677)\n");
 			exit(1);
 		}
-		
+
 	} else {
 		char *sp;
 
