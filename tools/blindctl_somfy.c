@@ -2,7 +2,7 @@
  * blindctl_somfy.c - Control Somfy RTS blinds through SI4010 radio PHY with
  *                    SER4010 firmware
  *
- * Copyright (c) 2014, David Imhoff <dimhoff_devel@xs4all.nl>
+ * Copyright (c) 2014, David Imhoff <dimhoff.devel@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

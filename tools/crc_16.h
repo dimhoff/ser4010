@@ -1,7 +1,7 @@
 /**
  * crc_16.h - Simple/Naive CRC-16 implementation
  *
- * Written 2014, David Imhoff <dimhoff_devel@xs4all.nl>
+ * Written 2014, David Imhoff <dimhoff.devel@gmail.com>
  *
  * This is free and unencumbered software released into the public domain.
  * 
