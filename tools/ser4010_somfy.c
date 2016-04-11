@@ -59,7 +59,7 @@ void usage(char *my_name) {
 	fprintf(stderr, "\t%s [Options..] up|down|my|prog state_file\n", my_name);
 	fprintf(stderr, "\n"
 			"Options:\n"
-			" -D <path>  Serial device path\n"
+			" -d <path>  Serial device path\n"
 			" -l         Generate long button press\n"
 			" -h         Display this help message\n"
 		);
@@ -289,7 +289,7 @@ int main(int argc, char **argv)
 
 	dev_path = DEFAULT_SERIAL_DEV;
 
-	while ((opt = getopt(argc, argv, "rlD:h")) != -1) {
+	while ((opt = getopt(argc, argv, "rld:h")) != -1) {
 		switch (opt) {
 		case 'r':
 			mode = RAW;
@@ -297,7 +297,7 @@ int main(int argc, char **argv)
 		case 'l':
 			long_press = true;
 			break;
-		case 'D':
+		case 'd':
 			dev_path = optarg;
 			break;
 		case 'h':
