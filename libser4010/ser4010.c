@@ -33,7 +33,7 @@
  * Byte swap IEEE-754 'single' floating point number
  */
 ///@{
-inline float befloattoh(float x)
+static inline float befloattoh(float x)
 {
 	// Need some magic to byteswap floats since typecasting doesn't work.
 	union {
@@ -46,7 +46,7 @@ inline float befloattoh(float x)
 	return accessor.f;
 }
 
-inline float htobefloat(float x)
+static inline float htobefloat(float x)
 {
 	// Need some magic to byteswap floats since typecasting doesn't work.
 	union {
