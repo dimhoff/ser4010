@@ -328,7 +328,7 @@ void main()
 				}
 				break;
 			case CMD_LOAD_FRAME:
-				bFrameLen = cmd_len - 2;
+				bFrameLen = cmd_len - CMD_PAYLOAD;
 				memcpy(abFrameArray, &cmd[CMD_PAYLOAD], bFrameLen);
 				res = STATUS_OK;
 				break;
