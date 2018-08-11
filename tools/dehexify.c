@@ -31,39 +31,39 @@
 
 static int dehex_nibble(int n)
 {
-        int x;
-        x = n - 0x30;
-        if (x > 9)
-                x -= 0x07;
-        if (x > 15)
-                x -= 0x20;
+	int x;
+	x = n - 0x30;
+	if (x > 9)
+		x -= 0x07;
+	if (x > 15)
+		x -= 0x20;
 
-        return x;
+	return x;
 }
 
 int dehexify(const char *in, size_t bytes, unsigned char *out)
 {
-        int i;
-        int x;
+	int i;
+	int x;
 
-        if (strlen(in) < bytes*2) {
-                return -1;
-        }
+	if (strlen(in) < bytes*2) {
+		return -1;
+	}
 
-        memset(out, 0, bytes);
-        for (i=0; i<bytes; i++) {
-                x = dehex_nibble(in[(i*2)]);
-                if (x < 0 || x > 15)
-                        return -1;
-                out[i] = (x << 4);
+	memset(out, 0, bytes);
+	for (i=0; i<bytes; i++) {
+		x = dehex_nibble(in[(i*2)]);
+		if (x < 0 || x > 15)
+			return -1;
+		out[i] = (x << 4);
 
-                x = dehex_nibble(in[(i*2)+1]);
-                if (x < 0 || x > 15)
-                        return -1;
-                out[i] |= x;
-        }
+		x = dehex_nibble(in[(i*2)+1]);
+		if (x < 0 || x > 15)
+			return -1;
+		out[i] |= x;
+	}
 
-        return 0;
+	return 0;
 }
 
 
