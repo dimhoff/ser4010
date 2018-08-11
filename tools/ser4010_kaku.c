@@ -114,14 +114,14 @@ int ser4010_kaku_init(struct serco *sdev)
 	float fFreq;
 
 	// Setup the PA.
-	// Zero out Alpha and Beta here. They have to do with the antenna.
-	// Chose a nice high PA Level. This value, along with the nominal cap
-	// come from the CAL SPREADSHEET 
-	rPaSetup.fAlpha      = 0;
+	// In tests with RFM60S module I didn't find much influence of the
+	// fAlpha/fBeta or wNominalCap parameters on the output levels.
+	// See chapter 12 'Power Amplifier' of Si4010-C2 datasheet.
+	rPaSetup.fAlpha      = 0;	// Disable radiate power adjustment
 	rPaSetup.fBeta       = 0;
-	rPaSetup.bLevel      = 60;
-	rPaSetup.wNominalCap = 256;
-	rPaSetup.bMaxDrv     = 0;
+	rPaSetup.bLevel      = 127;	// = max. output power
+	rPaSetup.bMaxDrv     = 1;	// Enable output power boost
+	rPaSetup.wNominalCap = 256;	// = half way the range
 
 	// Setup the ODS 
 	rOdsSetup.bModulationType = 0;  // Use OOK
