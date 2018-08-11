@@ -103,6 +103,11 @@ static int config_ods(tOds_Setup *ods_config,
 		return EINVAL;
 	}
 
+	// Verify if data rate is within range
+	if (sym_rate_ksym_sec < (24000.0/(8*0x7fff)) || sym_rate_ksym_sec > (24000.0/(1*1))) {
+		return ERANGE;
+	}
+
 	// Determine ramp time for calculating clk_div and edge_rate
 	float want_ramp_time;
 	if (modulation == ODS_MODULATION_TYPE_OOK) {
@@ -126,16 +131,18 @@ static int config_ods(tOds_Setup *ods_config,
 		return EINVAL;
 	}
 
-	// TODO: assert on incorrect bit rate
-
-	// Setup the ODS 
+	// Setup the ODS
 	ods_config->bModulationType = modulation;
 	calc_best_ramp_param(want_ramp_time,
 				&ods_config->bClkDiv, &ods_config->bEdgeRate);
 	ods_config->bGroupWidth    = bits_per_byte - 1;
 	ods_config->wBitRate       = 24000.0 / (sym_rate_ksym_sec *
 						(ods_config->bClkDiv+1));
-	if (10 * (24000 / (ods_config->wBitRate * (ods_config->bClkDiv+1)))
+	if (ods_config->wBitRate > 0x7fff) {
+		return ERANGE;
+	}
+	if (ods_config->wBitRate == 0 ||
+		10 * (24000 / (ods_config->wBitRate * (ods_config->bClkDiv+1)))
 		>= 76)
 	{
 		// Note: this is NOT the same as (10 * sym_rate_ksym_sec),
