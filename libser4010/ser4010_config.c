@@ -154,9 +154,9 @@ static int config_ods(tOds_Setup *ods_config,
 static uint8_t lookup_fdev(float freq_mhz, float fdev_khz)
 {
 	float wanted_shift;
-	int min_div_idx;
+	size_t min_div_idx;
 	float min_div;
-	int i;
+	size_t i;
 
 	wanted_shift = (fdev_khz * 2000.0 / freq_mhz);
 

@@ -43,7 +43,7 @@ static int dehex_nibble(int n)
 
 int dehexify(const char *in, size_t bytes, unsigned char *out)
 {
-	int i;
+	size_t i;
 	int x;
 
 	if (strlen(in) < bytes*2) {
@@ -65,5 +65,3 @@ int dehexify(const char *in, size_t bytes, unsigned char *out)
 
 	return 0;
 }
-
-

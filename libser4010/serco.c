@@ -125,7 +125,7 @@ int serco_send_command(struct serco *dev, uint8_t opcode,
 			const void *payload, size_t payload_len,
 			void *res_buf, size_t *res_len)
 {
-	int i;
+	size_t i;
 	size_t wlen;
 	uint8_t buf[1024];
 	uint8_t frame_id;
@@ -193,7 +193,7 @@ int serco_send_command(struct serco *dev, uint8_t opcode,
 	} while (buf[RES_ID] != frame_id);
 
 	if (res_buf != NULL) {
-		if (rlen - 2 < *res_len) {
+		if ((size_t) rlen - 2 < *res_len) {
 			*res_len = rlen - 2;
 		}
 		memcpy(res_buf, &buf[RES_PAYLOAD], *res_len);
