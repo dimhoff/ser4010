@@ -37,6 +37,7 @@
 #include <assert.h>
 #include <getopt.h>
 
+#include "dehexify.h"
 #include "serco.h"
 #include "ser4010_rts.h"
 
@@ -227,45 +228,6 @@ int send_somfy_command(struct serco *dev, uint8_t key, uint32_t addr, uint16_t s
 	}
 
 	return send_somfy_raw(dev, frame);
-}
-
-int dehex_nibble(int n)
-{
-	int x;
-	x = n - 0x30;
-	if (x > 9)
-		x -= 0x07;
-	if (x > 15)
-		x -= 0x20;
-
-	return x;
-}
-
-int dehexify(char *in, size_t bytes, unsigned char *out)
-{
-	int i;
-	int x;
-
-	if (strlen(in) < bytes*2) {
-		return -1;
-	}
-
-	memset(out, 0, bytes);
-	for (i=0; i<bytes; i++) {
-		x = dehex_nibble(in[(i*2)]);
-		if (x < 0 || x > 15)
-			return -1;
-		out[i] = (x << 4);
-
-		x = dehex_nibble(in[(i*2)+1]);
-		if (x < 0 || x > 15)
-			return -1;
-		out[i] |= x;
-
-		printf("%d - %x\n", i, out[i]);
-	}
-
-	return 0;
 }
 
 int main(int argc, char **argv)

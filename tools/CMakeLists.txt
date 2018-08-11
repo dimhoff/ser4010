@@ -4,7 +4,7 @@ link_directories(${PROJECT_BUILD_DIR}/libser4010)
 add_executable(ser4010_kaku ser4010_kaku.c)
 target_link_libraries(ser4010_kaku ser4010)
 
-add_executable(ser4010_somfy ser4010_somfy.c ser4010_rts.c)
+add_executable(ser4010_somfy ser4010_somfy.c ser4010_rts.c dehexify.c)
 target_link_libraries(ser4010_somfy ser4010)
 
 add_executable(ser4010_si443x ser4010_si443x.c pn9.c crc_16.c dehexify.c)
