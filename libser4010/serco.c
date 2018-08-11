@@ -164,32 +164,33 @@ int serco_send_command(struct serco *dev, uint8_t opcode,
 		wlen += ret;
 	}
 
-	rlen = _read_frame(dev->fd, buf, sizeof(buf));
-	if (rlen < 0) {
-		switch (rlen) {
-		case -1:
-			perror("read_frame() failed");
-			break;
-		case -2:
-			fprintf(stderr, "read_frame() failed: Error in byte stuffing\n");
-			break;
-		case -3:
-			fprintf(stderr, "read_frame() failed: Timeout\n");
-			break;
-		default:
-			fprintf(stderr, "read_frame() failed: Unknown Error\n");
-			break;
+	do {
+		rlen = _read_frame(dev->fd, buf, sizeof(buf));
+		if (rlen < 0) {
+			switch (rlen) {
+			case -1:
+				perror("read_frame() failed");
+				break;
+			case -2:
+				fprintf(stderr, "read_frame() failed: Error in byte stuffing\n");
+				break;
+			case -3:
+				fprintf(stderr, "read_frame() failed: Timeout\n");
+				break;
+			default:
+				fprintf(stderr, "read_frame() failed: Unknown Error\n");
+				break;
+			}
+			return -1;
 		}
-		return -1;
-	}
-	if (rlen < 2) {
-		fprintf(stderr, "Result frame too short\n");
-		return -1;
-	}
-	if (buf[RES_ID] != frame_id) {
-		fprintf(stderr, "Communication out-of-sync\n");
-		return -1;
-	}
+		if (rlen < 2) {
+			fprintf(stderr, "Result frame too short\n");
+			return -1;
+		}
+		if (buf[RES_ID] != frame_id) {
+			fprintf(stderr, "WARNING: Communication out-of-sync\n");
+		}
+	} while (buf[RES_ID] != frame_id);
 
 	if (res_buf != NULL) {
 		if (rlen - 2 < *res_len) {
