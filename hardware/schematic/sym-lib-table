@@ -1,4 +1,4 @@
 (sym_lib_table
-  (lib (name cp2102n-a01-gqfn20)(type Legacy)(uri ${KIPRJMOD}/cp2102n-a01-gqfn20.lib)(options "")(descr ""))
-  (lib (name si4010)(type Legacy)(uri ${KIPRJMOD}/si4010.lib)(options "")(descr ""))
+  (lib (name cp2102n-a01-gqfn20)(type Legacy)(uri ${KIPRJMOD}/../di_kicad_library/library/cp2102n-a01-gqfn20.lib)(options "")(descr "QFN20 model of SiLabs CP2101n USB -> UART Converter"))
+  (lib (name si4010)(type Legacy)(uri ${KIPRJMOD}/../di_kicad_library/library/si4010.lib)(options "")(descr "SiLabs Si4010 ISM-band Transmitter"))
 )

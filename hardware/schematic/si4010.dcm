@@ -1,9 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP Si4010-GT
-D Si4010-C2 Crystal-less SOC RF Transmitter (MSOP-10)
-K Si4010
-F https://www.silabs.com/documents/public/data-sheets/Si4010.pdf
-$ENDCMP
-#
-#End Doc Library

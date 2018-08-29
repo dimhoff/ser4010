@@ -1,0 +1,3 @@
+[submodule "hardware/di_kicad_library"]
+	path = hardware/di_kicad_library
+	url = https://github.com/dimhoff/di_kicad_library.git
