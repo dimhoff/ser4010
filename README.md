@@ -37,6 +37,10 @@ Suggested is to use a 3.3 volt compatible USB-to-serial adapter, like a FT232
 or CP2102. The module can also be directly connected to a RaspberryPi, or
 similar.
 
+## SER4010 USB PCB
+The hardware/ directory contains a PCB design for a USB connected SER4010
+device. This hardware is still under development and needs testing.
+
 Compiling the SER4010 Firmware
 ------------------------------
 **Note: This is only useful if you plan to develop on the firmware. Else use
