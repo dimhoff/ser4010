@@ -1505,11 +1505,11 @@
   )
 
   (module DI_Logo:DI_Logo (layer B.Cu) (tedit 58989B4C) (tstamp 5B85DC2D)
-    (at 162.5 81.5 90)
-    (fp_text reference REF** (at 0 -1.9 90) (layer B.SilkS) hide
+    (at 162.5 81.5 270)
+    (fp_text reference REF** (at 0 -1.9 270) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (fp_text value DI_Logo (at 0 2.025 90) (layer B.Fab) hide
+    (fp_text value DI_Logo (at 0 2.025 270) (layer B.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
     (fp_circle (center 0 0) (end 1 0) (layer B.SilkS) (width 0.2))
