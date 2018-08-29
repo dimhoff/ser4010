@@ -44,9 +44,23 @@ typedef struct {
 #define ODS_MODULATION_TYPE_OOK 0
 #define ODS_MODULATION_TYPE_FSK 1
 	uint8_t  bClkDiv;
-	uint8_t  bEdgeRate;       /* Only 2 LSb used */
+		/**< Only 3 LSb used, 24 MHz clock divider. see wBitRate */
+	uint8_t  bEdgeRate;
+		/**< Only 2 LSb used, Set PA Edge Time.
+		 * From SI4010-C2 Rev. 1.0 page 42:
+		 * """
+		 * Additional division factor in range 1-4 (ods_edge time+1).
+		 *
+		 *   Edge rate = 8 x (ods_ck_div+1)*(ods_edge_time+1)/24 MHz.
+		 *
+		 * When clk_ods is in range of 3-8 MHz, edge rate can be
+		 * selected from 1us to 10.7 μs. Study has indicated that in
+		 * the worst case (20 kbps Manchester), edge rates somewhat
+		 * higher than 4 μs are needed.
+		 * """
+		 */
 	uint8_t  bGroupWidth;
-		/**< Only 3 LSB used, When sending data only the first
+		/**< Only 3 LSb used, When sending data only the first
 		 * (bGroupWidth + 1) bits in the output data will be used. This
 		 * is useful when your encoding maps on bit to a odd amount of
 		 * symbols. eg. 1-bit is encoded into 3 symbols, then use
@@ -54,11 +68,66 @@ typedef struct {
 		 * prevents having to break one encoded bit across an output
 		 * byte boundery.
 		 */
-	uint16_t wBitRate;        /* Only bits 14 through 0 used */
-	// Bit width in seconds = (ods_datarate*(ods_ck_div+1))/24MHz
+	uint16_t wBitRate;
+		/**< Only 15 LSb used, Deterimines bit width in combination
+		 * with bClkDiv.
+		 * Bit width in seconds = (ods_datarate*(ods_ck_div+1))/24MHz
+		 */
 	uint8_t  bLcWarmInt;
+		/**< Only 4 LSb used, Sets Warm-Up Time for LC Oscillator.
+		 * From SI4010-C2 Rev. 1.0 page 45:
+		 * """
+		 * Sets the "warm up" interval for the LC oscillator, where it
+		 * is biased up prior to transmission or on the transition from
+		 * OOK zero bit to OOK one bit. Set this value in a way that
+		 * the warm-up interval of the LCOSC should be 125 μs for a
+		 * given ODS clock rate. Interval is in 64 x clk_ods cycles
+		 * resolution:
+		 *
+		 *   Interval = 64 x ods_warm_lc x (ods_ck_div+1)/24 MHz
+		 *
+		 * Using the Si4010 calculator spreadsheet in order to
+		 * determine the correct value of this parameter is strongly
+		 * recommended.
+		 * """
+		 * From: AN370 Rev. 1.0 page 74:
+		 * "If the value is 0 then the vStl_PreLoop() forcibly
+		 * enables LC to be turned on."
+		 */
 	uint8_t  bDivWarmInt;
+		/**< Only 4 LSb used, Sets Warm-Up Time for DIVIDER.
+		 * From SI4010-C2 Rev. 1.0 page 44:
+		 * """
+		 * Sets the "warm up" interval for the DIVIDER, where it is
+		 * biased up prior to transmission or on the transition from
+		 * OOK Zero bit to OOK One bit. Set this value in a way that
+		 * the warm-up interval of the divider should be 5us for a
+		 * given ODS clock rate. Interval is in 4 x clk_ods cycles
+		 * resolution:
+		 *
+		 *   Interval = 4 x ods_warm_div x (ods_ck_div+1)/24 MHz
+		 *
+		 * Using the Si4010 calculator spreadsheet in order to
+		 * determine the correct value of this parameter is strongly
+		 * recommended.
+		 * """
+		 */
 	uint8_t  bPaWarmInt;
+		/**< Only 4 LSb used, Sets Warm-Up Time for Power Amplifier.
+		 * From SI4010-C2 Rev. 1.0 page 44:
+		 * """
+		 * Sets the "warm up" interval for the PA, where it is biased
+		 * up prior to transmission or on the transition from OOK Zero
+		 * bit to OOK One bit. Set this value in a way that the warm-up
+		 * interval of the PA should be 1us for a given ODS clock rate.
+		 * Interval is directly in clk_ods cycles.
+		 *
+		 *   Interval = ods_warm_pa x (ods_ck_div+1)/24 MHz
+		 *
+		 * Using the Si4010 calculator spreadsheet in order to
+		 * determine the correct value of this parameter is strongly
+		 * recommended.
+		 */
 } tOds_Setup;
 #pragma pack()
 
@@ -68,7 +137,9 @@ typedef struct {
 #pragma pack(1)
 typedef struct {
 	float    fAlpha;
-		/**< Use si4010_calc_regs_110107.xls to calculate. */
+		/**< Use si4010_calc_regs_110107.xls to calculate.
+		 * See also SI4010-C2 Rev. 1.0 page 37.
+		  */
 	float    fBeta;
 		/**< Use si4010_calc_regs_110107.xls to calculate. */
 	uint8_t  bLevel;
@@ -140,6 +211,8 @@ int ser4010_config(struct serco *sdev,
  * @param sdev		Serial Communication handle
  * @param dev_type	Device type of connected device, must be
  *			SER4010_DEV_TYPE
+ *
+ * @returns		0 on success else an error occurred (TODO: spec)
  */
 int ser4010_get_dev_type(struct serco *sdev, uint16_t *dev_type);
 
@@ -153,7 +226,9 @@ int ser4010_get_dev_type(struct serco *sdev, uint16_t *dev_type);
  * ser4010_open()?
  *
  * @param sdev		Serial Communication handle
- * @param dev_type	Device firmware revision.
+ * @param dev_rev	Device firmware revision.
+ *
+ * @returns		0 on success else an error occurred (TODO: spec)
  */
 int ser4010_get_dev_rev(struct serco *sdev, uint16_t *dev_rev);
 
@@ -162,6 +237,8 @@ int ser4010_get_dev_rev(struct serco *sdev, uint16_t *dev_rev);
  *
  * @param sdev		Serial Communication handle
  * @param ods_config	New configuration
+ *
+ * @returns		0 on success else an error occurred (TODO: spec)
  */
 int ser4010_set_ods(struct serco *sdev, const tOds_Setup *ods_config);
 
@@ -170,6 +247,8 @@ int ser4010_set_ods(struct serco *sdev, const tOds_Setup *ods_config);
  *
  * @param sdev		Serial Communication handle
  * @param ods_config	Structure to return configuration in
+ *
+ * @returns		0 on success else an error occurred (TODO: spec)
  */
 int ser4010_get_ods(struct serco *sdev, tOds_Setup *ods_config);
 
@@ -178,6 +257,8 @@ int ser4010_get_ods(struct serco *sdev, tOds_Setup *ods_config);
  *
  * @param sdev		Serial Communication handle
  * @param ods_config	New configuration
+ *
+ * @returns		0 on success else an error occurred (TODO: spec)
  */
 int ser4010_set_pa(struct serco *sdev, const tPa_Setup *pa_config);
 
@@ -186,6 +267,8 @@ int ser4010_set_pa(struct serco *sdev, const tPa_Setup *pa_config);
  *
  * @param sdev		Serial Communication handle
  * @param ods_config	Structure to return configuration in
+ *
+ * @returns		0 on success else an error occurred (TODO: spec)
  */
 int ser4010_get_pa(struct serco *sdev, tPa_Setup *pa_config);
 
@@ -194,6 +277,8 @@ int ser4010_get_pa(struct serco *sdev, tPa_Setup *pa_config);
  *
  * @param sdev	Serial Communication handle
  * @param freq	Frequency in Hz
+ *
+ * @returns	0 on success else an error occurred (TODO: spec)
  */
 int ser4010_set_freq(struct serco *sdev, float freq);
 
@@ -202,6 +287,8 @@ int ser4010_set_freq(struct serco *sdev, float freq);
  *
  * @param sdev	Serial Communication handle
  * @param freq	Frequency in Hz
+ *
+ * @returns	0 on success else an error occurred (TODO: spec)
  */
 int ser4010_get_freq(struct serco *sdev, float *freq);
 
@@ -215,6 +302,8 @@ int ser4010_get_freq(struct serco *sdev, float *freq);
  *
  * @param sdev	Serial Communication handle
  * @param fdev	Magic value between 0 and 104 indicating frequency deviation
+ *
+ * @returns	0 on success else an error occurred (TODO: spec)
  */
 int ser4010_set_fdev(struct serco *sdev, uint8_t fdev);
 
@@ -228,6 +317,8 @@ int ser4010_set_fdev(struct serco *sdev, uint8_t fdev);
  *
  * @param sdev	Serial Communication handle
  * @param fdev	Magic value between 0 and 104 indicating frequency deviation
+ *
+ * @returns	0 on success else an error occurred (TODO: spec)
  */
 int ser4010_get_fdev(struct serco *sdev, uint8_t *fdev);
 
@@ -239,6 +330,8 @@ int ser4010_get_fdev(struct serco *sdev, uint8_t *fdev);
  *
  * @param sdev	Serial Communication handle
  * @param enc	Encoding to use
+ *
+ * @returns	0 on success else an error occurred (TODO: spec)
  */
 int ser4010_set_enc(struct serco *sdev, enum Ser4010Encoding enc);
 
@@ -250,6 +343,8 @@ int ser4010_set_enc(struct serco *sdev, enum Ser4010Encoding enc);
  *
  * @param sdev	Serial Communication handle
  * @param enc	Encoding to use
+ *
+ * @returns	0 on success else an error occurred (TODO: spec)
  */
 int ser4010_get_enc(struct serco *sdev, enum Ser4010Encoding *enc);
 
@@ -258,12 +353,13 @@ int ser4010_get_enc(struct serco *sdev, enum Ser4010Encoding *enc);
  *
  * Load the frame data to send. Every byte in the frame is send LSB first. Only
  * the first (tOds_Setup.bGroupWidth + 1) bits of a byte will be used.
+ * Frame length is limited to 254 bytes.
  *
  * @param sdev	Serial Communication handle
  * @param data	Frame data
- * @param len	Frame data length in bytes
+ * @param len	Frame data length in bytes (<= 254)
  *
- * @returns TODO:
+ * @returns	0 on success else an error occurred (TODO: spec)
  */
 int ser4010_load_frame(struct serco *sdev, uint8_t *data, size_t len);
 
@@ -273,9 +369,9 @@ int ser4010_load_frame(struct serco *sdev, uint8_t *data, size_t len);
  * Send the currently loaded frame once or multiple times.
  *
  * @param sdev	Serial Communication handle
- * @param cnt	Number of times to send the frame
+ * @param cnt	Number of times to send the frame. (range: 0-255)
  *
- * @returns TODO:
+ * @returns	0 on success else an error occurred (TODO: spec)
  */
 int ser4010_send(struct serco *sdev, unsigned int cnt);
 
