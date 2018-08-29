@@ -1,0 +1,8 @@
+(fp_lib_table
+  (lib (name DI_Logo)(type KiCad)(uri "$(KIPRJMOD)/DI_Logo.pretty")(options "")(descr ""))
+  (lib (name silabs_0402)(type KiCad)(uri "$(KIPRJMOD)/silabs_0402.pretty")(options "")(descr "0402 Footprint used in SiLabs reference design"))
+  (lib (name Measurement_Point_Round-SMD-Pad_Small-Labeled)(type KiCad)(uri ${KIPRJMOD}/Measurement_Point_Round-SMD-Pad_Small-Labeled.pretty)(options "")(descr "Measurement point with symbol value as silk label"))
+  (lib (name IQD_CFPX-180)(type KiCad)(uri ${KIPRJMOD}/IQD_CFPX-180.pretty)(options "")(descr ""))
+  (lib (name Adafruit-SMA_EDGELAUNCH)(type KiCad)(uri ${KIPRJMOD}/Adafruit-SMA_EDGELAUNCH.pretty)(options "")(descr ""))
+  (lib (name Amphenal_FCI_10118193-0001LF_USB_Micro-B)(type KiCad)(uri ${KIPRJMOD}/Amphenal_FCI_10118193-0001LF_USB_Micro-B.pretty)(options "")(descr ""))
+)

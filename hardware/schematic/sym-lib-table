@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name cp2102n-a01-gqfn20)(type Legacy)(uri ${KIPRJMOD}/cp2102n-a01-gqfn20.lib)(options "")(descr ""))
+  (lib (name si4010)(type Legacy)(uri ${KIPRJMOD}/si4010.lib)(options "")(descr ""))
+)
