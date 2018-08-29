@@ -15,3 +15,6 @@ target_link_libraries(ser4010_test_comm ser4010)
 
 add_executable(ser4010_dump ser4010_dump.c)
 target_link_libraries(ser4010_dump ser4010)
+
+add_executable(ser4010_console ser4010_console.c dehexify.c)
+target_link_libraries(ser4010_console ser4010 readline)
