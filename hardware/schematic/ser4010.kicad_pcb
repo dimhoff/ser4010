@@ -16,6 +16,7 @@
     (rev 00)
     (company "Copyright (c) 2018, David Imhoff <dimhoff.devel@gmail.com>")
     (comment 1 "License: BSD-3-Clause")
+    (comment 2 "Project: 0005")
   )
 
   (layers
@@ -1527,7 +1528,7 @@
   (gr_text SN: (at 165 97.5 90) (layer B.SilkS) (tstamp 5B85D675)
     (effects (font (size 0.8 0.8) (thickness 0.15)) (justify mirror))
   )
-  (gr_text "PN: 0004-00-00" (at 162 102.5 90) (layer B.SilkS)
+  (gr_text "PN: 0005-00-00" (at 162 102.5 90) (layer B.SilkS)
     (effects (font (size 0.8 0.8) (thickness 0.15)) (justify mirror))
   )
   (gr_text "Ser4010 USB" (at 165 82 90) (layer B.SilkS)

@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:ser4010-cache
 EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
@@ -9,7 +10,7 @@ Date "2018-08-28"
 Rev "00"
 Comp "Copyright (c) 2018, David Imhoff <dimhoff.devel@gmail.com>"
 Comment1 "License: BSD-3-Clause"
-Comment2 ""
+Comment2 "Project: 0005"
 Comment3 ""
 Comment4 ""
 $EndDescr
