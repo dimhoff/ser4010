@@ -24,6 +24,3 @@ target_link_libraries(ser4010_pulse ser4010)
 
 add_executable(ser4010_sweep ser4010_sweep.c)
 target_link_libraries(ser4010_sweep ser4010)
-
-add_executable(ser4010_smartwares ser4010_smartwares.c)
-target_link_libraries(ser4010_smartwares ser4010)
