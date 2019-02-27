@@ -39,7 +39,7 @@ similar.
 
 ## SER4010 USB PCB
 The hardware/ directory contains a PCB design for a USB connected SER4010
-device. This hardware is still under development and needs testing.
+device. This hardware is still under development and is untested testing.
 
 Compiling the SER4010 Firmware
 ------------------------------

@@ -22,6 +22,9 @@ F 0 "C14" H 1975 4250 50  0000 L CNN
 F 1 "0.1uF" H 1975 4050 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 1988 4000 50  0001 C CNN
 F 3 "" H 1950 4150 50  0001 C CNN
+F 4 "Wurth Electronics" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "885012206020" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "710-885012206020" H 0   0   50  0001 C CNN "Mouser No"
 	1    1950 4150
 	1    0    0    -1  
 $EndComp
@@ -33,6 +36,9 @@ F 0 "C13" H 1675 4250 50  0000 L CNN
 F 1 "4.7uF" H 1675 4050 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 1688 4000 50  0001 C CNN
 F 3 "" H 1650 4150 50  0001 C CNN
+F 4 "Murata" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "GRJ188C70J475KE11D" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "81-GRJ188C70J475KE1D" H 0   0   50  0001 C CNN "Mouser No"
 	1    1650 4150
 	1    0    0    -1  
 $EndComp
@@ -44,6 +50,9 @@ F 0 "J2" H 800 5150 50  0000 L CNN
 F 1 "USB_OTG" H 800 5050 50  0000 L CNN
 F 2 "Amphenal_FCI_10118193-0001LF_USB_Micro-B:Amphenal_FCI_10118193-0001LF_USB_Micro-B" H 1150 4650 50  0001 C CNN
 F 3 "" H 1150 4650 50  0001 C CNN
+F 4 "FCI / Amphenol" H 1000 4700 50  0001 C CNN "Manufacturer"
+F 5 "10118193-0001LF" H 1000 4700 50  0001 C CNN "Mfr. No"
+F 6 "649-10118193-0001LF" H 1000 4700 50  0001 C CNN "Mouser No"
 	1    1000 4700
 	1    0    0    -1  
 $EndComp
@@ -55,6 +64,9 @@ F 0 "D1" H 2375 5200 50  0000 L CNN
 F 1 "SP0503BAHT" H 2375 5125 50  0000 L CNN
 F 2 "TO_SOT_Packages_SMD:SOT-143" H 2375 5050 50  0001 L CNN
 F 3 "" H 2275 5225 50  0001 C CNN
+F 4 "Littelfuse" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "SP0503BAHTG" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "576-SP0503BAHTG" H 0   0   50  0001 C CNN "Mouser No"
 	1    2150 5100
 	1    0    0    -1  
 $EndComp
@@ -66,6 +78,9 @@ F 0 "U2" H 3850 4700 50  0000 R CNN
 F 1 "CP2102N-A01-GQFN20" H 4500 3100 50  0000 R CNN
 F 2 "Housings_DFN_QFN:SiliconLabs_QFN-20-1EP_3x3mm_Pitch0.5mm" H 3900 3000 50  0001 L CNN
 F 3 "" H 3500 2850 50  0001 C CNN
+F 4 "Silicon Laboratories" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "CP2102NA01GQFN20" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "634-CP2102NA01GQFN20" H 0   0   50  0001 C CNN "Mouser No"
 	1    3450 3900
 	1    0    0    -1  
 $EndComp
@@ -88,6 +103,9 @@ F 0 "C12" H 3975 2700 50  0000 L CNN
 F 1 "0.1uF" H 3975 2500 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 3988 2450 50  0001 C CNN
 F 3 "" H 3950 2600 50  0001 C CNN
+F 4 "Wurth Electronics" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "885012206020" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "710-885012206020" H 0   0   50  0001 C CNN "Mouser No"
 	1    3950 2600
 	1    0    0    -1  
 $EndComp
@@ -99,6 +117,9 @@ F 0 "C11" H 3675 2700 50  0000 L CNN
 F 1 "4.7uF" H 3675 2500 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 3688 2450 50  0001 C CNN
 F 3 "" H 3650 2600 50  0001 C CNN
+F 4 "Murata" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "GRJ188C70J475KE11D" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "81-GRJ188C70J475KE1D" H 0   0   50  0001 C CNN "Mouser No"
 	1    3650 2600
 	1    0    0    -1  
 $EndComp
@@ -133,6 +154,9 @@ F 0 "U1" H 6100 4400 60  0000 C CNN
 F 1 "Si4010-GT" H 6200 3100 60  0000 C CNN
 F 2 "Housings_SSOP:MSOP-10_3x3mm_Pitch0.5mm" H 6650 3150 60  0001 C CNN
 F 3 "" H 6650 3150 60  0001 C CNN
+F 4 "Silicon Laboratories" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "SI4010-C2-GT" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "634-SI4010-C2-GT" H 0   0   50  0001 C CNN "Mouser No"
 	1    6600 3700
 	-1   0    0    -1  
 $EndComp
@@ -144,6 +168,10 @@ F 0 "C5" H 8400 3750 50  0000 L CNN
 F 1 "2.7pF" H 8300 3850 50  0000 L CNN
 F 2 "silabs_0402:C_0402" H 8638 3650 50  0001 C CNN
 F 3 "" H 8600 3800 50  0001 C CNN
+F 4 "Murata" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "GRM1555C1H2R7BA01D" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "81-GRM1555C1H2R7BA1D" H 0   0   50  0001 C CNN "Mouser No"
+F 7 "±5%; C0G (based on 4010-DKPB434-BM_BOM.xls)" H 0   0   50  0001 C CNN "Requirements"
 	1    8600 3800
 	1    0    0    1   
 $EndComp
@@ -155,6 +183,10 @@ F 0 "C3" V 9300 3000 50  0000 L CNN
 F 1 "4.3pF" V 9600 2950 50  0000 L CNN
 F 2 "silabs_0402:C_0402" H 9488 2900 50  0001 C CNN
 F 3 "" H 9450 3050 50  0001 C CNN
+F 4 "Murata" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "GRM1555C1E4R3BA01D" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "81-GRM1555C1E4R3BA1D" H 0   0   50  0001 C CNN "Mouser No"
+F 7 "±5%; C0G (based on 4010-DKPB434-BM_BOM.xls)" H 0   0   50  0001 C CNN "Requirements"
 	1    9450 3050
 	0    -1   1    0   
 $EndComp
@@ -166,6 +198,10 @@ F 0 "C2" H 9825 4700 50  0000 L CNN
 F 1 "6.8pF" H 9825 4500 50  0000 L CNN
 F 2 "silabs_0402:C_0402" H 9838 4450 50  0001 C CNN
 F 3 "" H 9800 4600 50  0001 C CNN
+F 4 "Murata" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "GRM1555C1E6R8BA01D" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "81-GRM1555C1E6R8BA1D" H 0   0   50  0001 C CNN "Mouser No"
+F 7 "±5%; C0G (based on 4010-DKPB434-BM_BOM.xls)" H 0   0   50  0001 C CNN "Requirements"
 	1    9800 4600
 	-1   0    0    -1  
 $EndComp
@@ -177,6 +213,10 @@ F 0 "C4" H 9225 4700 50  0000 L CNN
 F 1 "6.8pF" H 9225 4500 50  0000 L CNN
 F 2 "silabs_0402:C_0402" H 9238 4450 50  0001 C CNN
 F 3 "" H 9200 4600 50  0001 C CNN
+F 4 "Murata" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "GRM1555C1E6R8BA01D" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "81-GRM1555C1E6R8BA1D" H 0   0   50  0001 C CNN "Mouser No"
+F 7 "±5%; C0G (based on 4010-DKPB434-BM_BOM.xls)" H 0   0   50  0001 C CNN "Requirements"
 	1    9200 4600
 	-1   0    0    -1  
 $EndComp
@@ -188,6 +228,10 @@ F 0 "C1" V 9950 4300 50  0000 L CNN
 F 1 "270pF" V 10250 4250 50  0000 L CNN
 F 2 "silabs_0402:C_0402" H 10138 4200 50  0001 C CNN
 F 3 "" H 10100 4350 50  0001 C CNN
+F 4 "Murata" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "GRM1555C1H271JA01J" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "81-GRM1555C1H271JA1J" H 0   0   50  0001 C CNN "Mouser No"
+F 7 "±5%; C0G (based on 4010-DKPB434-BM_BOM.xls)" H 0   0   50  0001 C CNN "Requirements"
 	1    10100 4350
 	0    -1   1    0   
 $EndComp
@@ -199,6 +243,10 @@ F 0 "C6" V 8400 4300 50  0000 L CNN
 F 1 "1.8pF" V 8700 4250 50  0000 L CNN
 F 2 "silabs_0402:C_0402" H 8588 4200 50  0001 C CNN
 F 3 "" H 8550 4350 50  0001 C CNN
+F 4 "±5%; C0G (based on 4010-DKPB434-BM_BOM.xls)" V 8550 4350 50  0001 C CNN "Requirements"
+F 5 "Murata" H 0   0   50  0001 C CNN "Manufacturer"
+F 6 "GRM1555C1H1R8WA01D" H 0   0   50  0001 C CNN "Mfr. No"
+F 7 "81-GRM1555C1H1R8WA1D" H 0   0   50  0001 C CNN "Mouser No"
 	1    8550 4350
 	0    -1   1    0   
 $EndComp
@@ -210,6 +258,10 @@ F 0 "L4" H 8350 3900 50  0000 C CNN
 F 1 "16nH" H 8400 3800 50  0000 C CNN
 F 2 "silabs_0402:C_0402" H 8250 3850 50  0001 C CNN
 F 3 "" H 8250 3850 50  0001 C CNN
+F 4 "Coilcraft" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "0402HP-16NXJLU" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "994-0402HP-16NXJLU" H 0   0   50  0001 C CNN "Mouser No"
+F 7 "See 'Inductor Selection' sheet" H 0   0   50  0001 C CNN "Requirements"
 	1    8250 3850
 	-1   0    0    -1  
 $EndComp
@@ -221,6 +273,10 @@ F 0 "L3" H 8350 3500 50  0000 C CNN
 F 1 "16nH" H 8400 3400 50  0000 C CNN
 F 2 "silabs_0402:C_0402" H 8250 3450 50  0001 C CNN
 F 3 "" H 8250 3450 50  0001 C CNN
+F 4 "Coilcraft" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "0402HP-16NXJLU" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "994-0402HP-16NXJLU" H 0   0   50  0001 C CNN "Mouser No"
+F 7 "See 'Inductor Selection' sheet" H 0   0   50  0001 C CNN "Requirements"
 	1    8250 3450
 	-1   0    0    -1  
 $EndComp
@@ -232,6 +288,10 @@ F 0 "L5" H 8000 3500 50  0000 C CNN
 F 1 "220nH" H 8050 3400 50  0000 C CNN
 F 2 "silabs_0402:C_0402" H 7900 3450 50  0001 C CNN
 F 3 "" H 7900 3450 50  0001 C CNN
+F 4 "Coilcraft" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "0402HPH-R22XJLU" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "994-0402HPH-R22XJLU" H 0   0   50  0001 C CNN "Mouser No"
+F 7 "See 'Inductor Selection' sheet" H 0   0   50  0001 C CNN "Requirements"
 	1    7900 3450
 	-1   0    0    -1  
 $EndComp
@@ -243,6 +303,10 @@ F 0 "L2" H 9150 3700 50  0000 C CNN
 F 1 "56nH" H 9200 3600 50  0000 C CNN
 F 2 "silabs_0402:C_0402" H 9050 3650 50  0001 C CNN
 F 3 "" H 9050 3650 50  0001 C CNN
+F 4 "Coilcraft" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "0402HPH-56NXJLU" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "994-0402HPH-56NXJLU" H 0   0   50  0001 C CNN "Mouser No"
+F 7 "See 'Inductor Selection' sheet" H 0   0   50  0001 C CNN "Requirements"
 	1    9050 3650
 	-1   0    0    -1  
 $EndComp
@@ -254,6 +318,10 @@ F 0 "L1" V 9450 4350 50  0000 C CNN
 F 1 "18nH" V 9575 4350 50  0000 C CNN
 F 2 "silabs_0402:C_0402" H 9500 4350 50  0001 C CNN
 F 3 "" H 9500 4350 50  0001 C CNN
+F 4 "Coilcraft" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "0402HP-18NXJLU" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "994-0402HP-18NXJLU" H 0   0   50  0001 C CNN "Mouser No"
+F 7 "See 'Inductor Selection' sheet" H 0   0   50  0001 C CNN "Requirements"
 	1    9500 4350
 	0    -1   1    0   
 $EndComp
@@ -265,6 +333,9 @@ F 0 "C7" H 7475 2500 50  0000 L CNN
 F 1 "2.2uF" H 7475 2300 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0603" H 7488 2250 50  0001 C CNN
 F 3 "" H 7450 2400 50  0001 C CNN
+F 4 "Wurth Electronics" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "885012106018" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "710-885012106018" H 0   0   50  0001 C CNN "Mouser No"
 	1    7450 2400
 	-1   0    0    -1  
 $EndComp
@@ -276,6 +347,9 @@ F 0 "C8" H 7225 2500 50  0000 L CNN
 F 1 "1nF" H 7225 2300 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0402" H 7238 2250 50  0001 C CNN
 F 3 "" H 7200 2400 50  0001 C CNN
+F 4 "Murata" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "GRM1555C1H102JA01D" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "81-GRM1555C1H102JA1D" H 0   0   50  0001 C CNN "Mouser No"
 	1    7200 2400
 	-1   0    0    -1  
 $EndComp
@@ -287,6 +361,9 @@ F 0 "C9" H 6975 2500 50  0000 L CNN
 F 1 "270pF" H 6975 2300 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0402" H 6988 2250 50  0001 C CNN
 F 3 "" H 6950 2400 50  0001 C CNN
+F 4 "Murata" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "GRM1555C1H271JA01J" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "81-GRM1555C1H271JA1J" H 0   0   50  0001 C CNN "Mouser No"
 	1    6950 2400
 	-1   0    0    -1  
 $EndComp
@@ -309,6 +386,9 @@ F 0 "J5" V 5850 5000 50  0001 L CNN
 F 1 "C2CK" V 5900 5000 50  0000 L CNN
 F 2 "Measurement_Point_Round-SMD-Pad_Small-Labeled:Measurement_Point_Round-SMD-Pad_Small-Labeled" H 6100 4800 50  0001 C CNN
 F 3 "" H 6100 4800 50  0001 C CNN
+F 4 "-" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "-" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "-" H 0   0   50  0001 C CNN "Mouser No"
 	1    5900 4800
 	0    1    1    0   
 $EndComp
@@ -320,6 +400,9 @@ F 0 "J6" V 5850 5100 50  0001 L CNN
 F 1 "C2D" V 5900 5100 50  0000 L CNN
 F 2 "Measurement_Point_Round-SMD-Pad_Small-Labeled:Measurement_Point_Round-SMD-Pad_Small-Labeled" H 6100 4900 50  0001 C CNN
 F 3 "" H 6100 4900 50  0001 C CNN
+F 4 "-" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "-" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "-" H 0   0   50  0001 C CNN "Mouser No"
 	1    5900 4900
 	0    1    1    0   
 $EndComp
@@ -331,6 +414,9 @@ F 0 "J4" V 5850 4900 50  0001 L CNN
 F 1 "VPP" V 5900 4900 50  0000 L CNN
 F 2 "Measurement_Point_Round-SMD-Pad_Small-Labeled:Measurement_Point_Round-SMD-Pad_Small-Labeled" H 6100 4700 50  0001 C CNN
 F 3 "" H 6100 4700 50  0001 C CNN
+F 4 "-" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "-" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "-" H 0   0   50  0001 C CNN "Mouser No"
 	1    5900 4700
 	0    1    1    0   
 $EndComp
@@ -342,6 +428,9 @@ F 0 "J3" V 5850 4700 50  0001 L CNN
 F 1 "3V3" V 5900 4700 50  0000 L CNN
 F 2 "Measurement_Point_Round-SMD-Pad_Small-Labeled:Measurement_Point_Round-SMD-Pad_Small-Labeled" H 6100 4500 50  0001 C CNN
 F 3 "" H 6100 4500 50  0001 C CNN
+F 4 "-" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "-" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "-" H 0   0   50  0001 C CNN "Mouser No"
 	1    5900 4500
 	0    1    1    0   
 $EndComp
@@ -353,6 +442,9 @@ F 0 "J7" V 5850 5200 50  0001 L CNN
 F 1 "GND" V 5900 5200 50  0000 L CNN
 F 2 "Measurement_Point_Round-SMD-Pad_Small-Labeled:Measurement_Point_Round-SMD-Pad_Small-Labeled" H 6100 5000 50  0001 C CNN
 F 3 "" H 6100 5000 50  0001 C CNN
+F 4 "-" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "-" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "-" H 0   0   50  0001 C CNN "Mouser No"
 	1    5900 5000
 	0    1    1    0   
 $EndComp
@@ -375,6 +467,9 @@ F 0 "J1" H 10660 4470 50  0000 C CNN
 F 1 "Conn_Coaxial" V 10765 4350 50  0000 C CNN
 F 2 "Adafruit-SMA_EDGELAUNCH:Adafruit-SMA_EDGELAUNCH" H 10650 4350 50  0001 C CNN
 F 3 "" H 10650 4350 50  0001 C CNN
+F 4 "Ada Fruit" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "1865" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "485-1865" H 0   0   50  0001 C CNN "Mouser No"
 	1    10650 4350
 	1    0    0    -1  
 $EndComp
@@ -387,6 +482,9 @@ F 0 "C10" H 5525 2700 50  0000 L CNN
 F 1 "5pF" H 5525 2500 50  0000 L CNN
 F 2 "Capacitors_SMD:C_0402" H 5538 2450 50  0001 C CNN
 F 3 "" H 5500 2600 50  0001 C CNN
+F 4 "Murata" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "GCM1555C1H5R0FA16D" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "81-GCM1555C1H5R0FA6D" H 0   0   50  0001 C CNN "Mouser No"
 	1    5500 2600
 	1    0    0    1   
 $EndComp
@@ -814,6 +912,9 @@ F 0 "D2" H 5092 4895 50  0000 C CNN
 F 1 "LED" H 5092 4986 50  0000 C CNN
 F 2 "Diodes_SMD:D_0805" H 5100 5150 50  0001 C CNN
 F 3 "~" H 5100 5150 50  0001 C CNN
+F 4 "Wurth Electronics" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "150080RS75000" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "710-150080RS75000" H 0   0   50  0001 C CNN "Mouser No"
 	1    5100 5150
 	-1   0    0    1   
 $EndComp
@@ -909,6 +1010,9 @@ F 0 "J8" V 5850 4800 50  0001 L CNN
 F 1 "VBUS" V 5900 4800 50  0000 L CNN
 F 2 "Measurement_Point_Round-SMD-Pad_Small-Labeled:Measurement_Point_Round-SMD-Pad_Small-Labeled" H 6100 4600 50  0001 C CNN
 F 3 "" H 6100 4600 50  0001 C CNN
+F 4 "-" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "-" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "-" H 0   0   50  0001 C CNN "Mouser No"
 	1    5900 4600
 	0    1    1    0   
 $EndComp
@@ -930,6 +1034,9 @@ F 0 "Y1" V 5100 2350 50  0000 C CNN
 F 1 "LFXTAL055915" V 5000 2200 50  0000 C CNN
 F 2 "IQD_CFPX-180:Crystal_SMD_IQD_CFPX-180_4pin_3.2x2.5mm" H 5150 2600 50  0001 C CNN
 F 3 "" H 5150 2600 50  0001 C CNN
+F 4 "IQD Frequency Products" H 0   0   50  0001 C CNN "Manufacturer"
+F 5 "LFXTAL055915" H 0   0   50  0001 C CNN "Mfr. No"
+F 6 "449-LFXTAL055915REEL" H 0   0   50  0001 C CNN "Mouser No"
 	1    5150 2600
 	0    1    1    0   
 $EndComp
